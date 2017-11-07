@@ -1,10 +1,7 @@
 <?php
 /**
- * @version		3.5.11 administrator/components/com_buttons/views/buttons/view.html.php
- *
  * @package		Buttons
  * @subpackage	com_buttons
- * @since		3.4
  *
  * @author		Helios Ciancio <info@eshiol.it>
  * @link		http://www.eshiol.it
@@ -21,14 +18,52 @@ defined('_JEXEC') or die('Restricted access.');
 
 /**
  * View class for a list of buttons.
+ * @version		3.6
+ * @since		3.4
  */
 class ButtonsViewButtons extends JViewLegacy
 {
+	/**
+	 * An array of items
+	 *
+	 * @var  array
+	 */
 	protected $items;
 
+	/**
+	 * The pagination object
+	 *
+	 * @var  JPagination
+	 */
 	protected $pagination;
 
+	/**
+	 * The model state
+	 *
+	 * @var  object
+	 */
 	protected $state;
+
+	/**
+	 * Form object for search filters
+	 *
+	 * @var  JForm
+	 */
+	public $filterForm;
+
+	/**
+	 * The active search filters
+	 *
+	 * @var  array
+	 */
+	public $activeFilters;
+
+	/**
+	 * The sidebar markup
+	 *
+	 * @var  string
+	 */
+	protected $sidebar;
 
 	/**
 	 * Display the view
@@ -39,9 +74,11 @@ class ButtonsViewButtons extends JViewLegacy
 	{
 		JLog::add(new JLogEntry(__METHOD__, JLOG::DEBUG, 'com_buttons'));
 
-		$this->state      = $this->get('State');
-		$this->items      = $this->get('Items');
-		$this->pagination = $this->get('Pagination');
+		$this->items         = $this->get('Items');
+		$this->pagination    = $this->get('Pagination');
+		$this->state         = $this->get('State');
+		$this->filterForm    = $this->get('FilterForm');
+		$this->activeFilters = $this->get('ActiveFilters');
 
 		ButtonsHelper::addSubmenu('buttons');
 
@@ -126,36 +163,6 @@ class ButtonsViewButtons extends JViewLegacy
 
 		JHtmlSidebar::setAction('index.php?option=com_buttons&view=buttons');
 
-		JHtmlSidebar::addFilter(
-			JText::_('JOPTION_SELECT_CATEGORY'),
-			'filter_category_id',
-			JHtml::_('select.options', JHtml::_('category.options', 'com_buttons'), 'value', 'text', $this->state->get('filter.category_id'))
-		);
-
-		JHtmlSidebar::addFilter(
-			JText::_('JOPTION_SELECT_PUBLISHED'),
-			'filter_state',
-			JHtml::_('select.options', JHtml::_('jgrid.publishedOptions'), 'value', 'text', $this->state->get('filter.state'), true)
-		);
-
-		JHtmlSidebar::addFilter(
-			JText::_('JOPTION_SELECT_ACCESS'),
-			'filter_access',
-			JHtml::_('select.options', JHtml::_('access.assetgroups'), 'value', 'text', $this->state->get('filter.access'))
-		);
-
-		JHtmlSidebar::addFilter(
-			JText::_('JOPTION_SELECT_LANGUAGE'),
-			'filter_language',
-			JHtml::_('select.options', JHtml::_('contentlanguage.existing', true, true), 'value', 'text', $this->state->get('filter.language'))
-		);
-
-		JHtmlSidebar::addFilter(
-			JText::_('JOPTION_SELECT_TAG'),
-			'filter_tag',
-			JHtml::_('select.options', JHtml::_('tag.options', true, true), 'value', 'text', $this->state->get('filter.tag'))
-		);
-
 	}
 
 	/**
@@ -176,6 +183,7 @@ class ButtonsViewButtons extends JViewLegacy
 			'a.access' => JText::_('JGRID_HEADING_ACCESS'),
 			'a.hits' => JText::_('JGLOBAL_HITS'),
 			'a.language' => JText::_('JGRID_HEADING_LANGUAGE'),
+			'a.value' => JText::_('COM_BUTTONS_HEADING_VALUE'),
 			'a.id' => JText::_('JGRID_HEADING_ID')
 		);
 	}

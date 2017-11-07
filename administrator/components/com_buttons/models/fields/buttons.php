@@ -1,10 +1,7 @@
 <?php
 /**
- * @version		3.5.11 administrator/components/com_buttons/forms/fields/button.php
- *
  * @package		Buttons
  * @subpackage	plg_content_buttons
- * @since		3.4
  *
  * @author		Helios Ciancio <info@eshiol.it>
  * @link		http://www.eshiol.it
@@ -23,17 +20,19 @@ JFormHelper::loadFieldClass('list');
 
 /**
  * Form Field class for the Joomla Framework.
+ * @version		3.6
+ * @since		3.4
  */
-class JFormFieldButton extends JFormFieldList
+class JFormFieldButtons extends JFormFieldList
 {
 	/**
-	 * A flexible button list that respects access controls
+	 * A flexible buttons list that respects access controls
 	 *
 	 * @var    string
 	 *
 	 * @since  3.4
 	 */
-	public $type = 'Button';
+	public $type = 'Buttons';
 
 	/**
 	 * com_buttons parameters
@@ -60,7 +59,7 @@ class JFormFieldButton extends JFormFieldList
 	}
 
 	/**
-	 * Method to get the field input for a button field.
+	 * Method to get the field input for a buttons field.
 	 *
 	 * @return  string  The field input.
 	 *
@@ -106,8 +105,9 @@ class JFormFieldButton extends JFormFieldList
 
 		$db    = JFactory::getDbo();
 		$query = $db->getQuery(true)
-			->select('DISTINCT a.id AS value, a.alias AS path, a.title AS text, a.state AS published')
-			->from('#__buttons AS a');
+			->select('DISTINCT a.id AS value, a.path, a.title AS text, a.published')
+			->from('#__categories AS a')
+			->where('extension = '.$db->quote('com_buttons'));
 
 		// Filter language
 		if (!empty($this->element['language']))
@@ -118,15 +118,13 @@ class JFormFieldButton extends JFormFieldList
 		// Filter on the published state
 		if (is_numeric($published))
 		{
-			$query->where('a.state = ' . (int) $published);
+			$query->where('a.published = ' . (int) $published);
 		}
 		elseif (is_array($published))
 		{
 			JArrayHelper::toInteger($published);
-			$query->where('a.state IN (' . implode(',', $published) . ')');
+			$query->where('a.published IN (' . implode(',', $published) . ')');
 		}
-
-		$query->order('a.ordering ASC');
 
 		// Get the options.
 		$db->setQuery($query);
@@ -140,8 +138,8 @@ class JFormFieldButton extends JFormFieldList
 			return false;
 		}
 
-		// Block the possibility to set a button as it own parent
-		if ($this->form->getName() == 'com_buttons.button')
+		// Block the possibility to set a buttons as it own parent
+		if ($this->form->getName() == 'com_categories.categorycom_buttons')
 		{
 			$id   = (int) $this->form->getValue('id', 0);
 

@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension type="component" version="3.5" method="upgrade">
   <name>com_buttons</name>
-  <creationDate>October 2016</creationDate>
+  <creationDate>November 2016</creationDate>
   <author>Helios Ciancio</author>
   <authorEmail>info@eshiol.it</authorEmail>
   <authorUrl>www.eshiol.it</authorUrl>
-  <copyright>(C) 2015, 2016 Helios Ciancio. All rights reserved.</copyright>
+  <copyright>(C) 2015, 2017 Helios Ciancio. All rights reserved.</copyright>
   <license>http://www.gnu.org/licenses/gpl-3.0.html GNU/GPL v3</license>
-  <version>3.5.11.567</version>
+  <version>3.5.12.568</version>
   <description>COM_BUTTONS_XML_DESCRIPTION</description>
+  <updateservers>
+    <server type="collection" priority="1" name="Buttons">https://www.eshiol.it/files/buttons/buttons.xml</server>
+  </updateservers>
   <scriptfile>buttons.script.php</scriptfile>
   <install>
     <sql>

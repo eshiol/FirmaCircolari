@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension version="3.5" type="plugin" group="content" method="upgrade">
   <name>plg_content_buttons</name>
-  <creationDate>November 2016</creationDate>
+  <creationDate>November 2017</creationDate>
   <author>Helios Ciancio</author>
   <authorEmail>info@eshiol.it</authorEmail>
   <authorUrl>www.eshiol.it</authorUrl>

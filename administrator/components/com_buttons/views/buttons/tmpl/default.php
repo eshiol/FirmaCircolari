@@ -1,7 +1,7 @@
 <?php
 /**
  * @version		3.5.11 administrator/components/com_buttons/views/buttons/tmpl/default.php
- * 
+ *
  * @package		Buttons
  * @subpackage	com_buttons
  * @since		3.4
@@ -15,7 +15,7 @@
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
  */
- 
+
 // no direct access
 defined('_JEXEC') or die('Restricted access.');
 
@@ -177,7 +177,7 @@ JFactory::getDocument()->addScriptDeclaration('
 						<td class="center">
 							<div class="btn-group">
 								<?php echo JHtml::_('jgrid.published', $item->state, $i, 'buttons.', $canChange, 'cb'); ?>
-								<?php 
+								<?php
 								// Create dropdown items
 								if ($item->state == 2)
 									JHtml::_('actionsdropdown.publish', 'cb' . $i, 'buttons');
@@ -193,11 +193,11 @@ JFactory::getDocument()->addScriptDeclaration('
 								// Render dropdown list
 								echo JHtml::_('actionsdropdown.render', $this->escape($item->title));
 								?>
-							</div>		
+							</div>
 						</td>
 						<td class="center">
-							<?php 
-							$images->loadString($item->images, 'JSON'); 
+							<?php
+							$images->loadString($item->images, 'JSON');
 							JFactory::getDocument()->addStyleDeclaration(
 								'.button-'.$item->id.
 								'{'.

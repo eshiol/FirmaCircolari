@@ -1,7 +1,7 @@
 <?php
 /**
  * @version		3.5.11 components/com_buttons/views/extras/view.csv.php
- * 
+ *
  * @package		Buttons
  * @subpackage	com_buttons
  * @since		3.4.8
@@ -15,7 +15,7 @@
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
  */
- 
+
 // no direct access
 defined('_JEXEC') or die('Restricted access.');
 
@@ -40,9 +40,9 @@ class ButtonsViewExtras extends JViewLegacy
 	public function display($tpl = null)
 	{
 		JLog::add(new JLogEntry(__METHOD__, JLOG::DEBUG, 'com_buttons'));
-		
+
 		$params = JComponentHelper::getParams('com_buttons');
-		
+
 		$this->state = $this->get('State');
 		$this->state->set('list.limit', 0);
 		$id = JFactory::getApplication()->input->getInt('id', 0);
@@ -52,7 +52,7 @@ class ButtonsViewExtras extends JViewLegacy
 		$asset_id = $article->asset_id;
 		$model->setState('filter.asset_id', $asset_id);
 		$this->items = $model->getItems();
-	
+
 		$document = JFactory::getDocument();
 		$document->setMimeEncoding('text/csv', true);
 		JResponse::setHeader('Content-disposition', 'attachment; filename="'.$article->alias.'.csv"', true);
@@ -63,15 +63,15 @@ class ButtonsViewExtras extends JViewLegacy
 		echo JText::_('COM_BUTTONS_CSV_HEADER_TOOLBAR').';';
 		echo JText::_('COM_BUTTONS_CSV_HEADER_VALUE').';';
 		echo "\n";
-		
+
 		$db = JFactory::getDbo();
-		
+
 		$cparams = array();
 		$authorisedViewLevels = JFactory::getUser()->getAuthorisedViewLevels();
 		foreach ($this->items as $item)
 		{
-			JLog::add(new JLogEntry(print_r($item, true), JLOG::DEBUG, 'com_buttons'));		
-			
+			JLog::add(new JLogEntry(print_r($item, true), JLOG::DEBUG, 'com_buttons'));
+
 			$catid = $item->catid;
 			if (!isset($cparams[$catid]))
 			{

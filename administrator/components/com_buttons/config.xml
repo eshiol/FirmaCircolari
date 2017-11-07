@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- 
+<!--
 /**
  * @version		3.5.11 administrator/components/com_buttons/config.xml
- * 
+ *
  * @package		Buttons
  * @subpackage	com_buttons
  * @since		3.4
@@ -43,12 +43,12 @@
 			default="5"
 		/>
 
-        <field 
-        	name="debug" 
-        	type="radio" 
-        	default="0" 
-        	class="btn-group btn-group-yesno" 
-        	description="COM_BUTTONS_FIELD_DEBUG_SYSTEM_DESC" 
+        <field
+        	name="debug"
+        	type="radio"
+        	default="0"
+        	class="btn-group btn-group-yesno"
+        	description="COM_BUTTONS_FIELD_DEBUG_SYSTEM_DESC"
         	label="COM_BUTTONS_FIELD_DEBUG_SYSTEM_LABEL"
         	>
 			<option value="1">JYES</option>
@@ -68,7 +68,7 @@
 		label="COM_BUTTONS_TOOLBAR_LABEL"
 		description="COM_BUTTONS_TOOLBAR_DESC"
 		>
-		<field name="toolbar_lockondelete" type="radio" class="btn-group btn-group-yesno" default="1" 
+		<field name="toolbar_lockondelete" type="radio" class="btn-group btn-group-yesno" default="1"
 			label="COM_BUTTONS_FIELD_LOCKONDELETE_LABEL" description="COM_BUTTONS_FIELD_LOCKONDELETE_DESC">
 			<option value="1">JYES</option>
 			<option value="0">JNO</option>

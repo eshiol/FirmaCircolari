@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- 
+<!--
 /**
  * @version		3.5.11 plugins/content/buttons/forms/article.xml
- * 
+ *
  * @package		Buttons
  * @subpackage	plg_content_buttons
  * @since		3.4
@@ -20,9 +20,9 @@
 <form>
     <fields name="attribs" >
         <fieldset name="eshiolit" label="PLG_CONTENT_BUTTONS_OPTIONS"
-			addfieldpath="/administrator/components/com_buttons/models/forms/fields" 
+			addfieldpath="/administrator/components/com_buttons/models/forms/fields"
         	>
-			<field 
+			<field
 				name="toolbar_top"
 				type="buttons"
 			    label="PLG_CONTENT_BUTTONS_OPTIONS_FIELD_TOOLBAR_TOP_LABEL"
@@ -30,7 +30,7 @@
 			    labelclass="control-label"
 			    multiple="true"
 			    />
-			<field 
+			<field
 				name="toolbar_bottom"
 				type="buttons"
 			    label="PLG_CONTENT_BUTTONS_OPTIONS_FIELD_TOOLBAR_BOTTOM_LABEL"

@@ -12,7 +12,7 @@
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
  */
- 
+
 // no direct access
 defined('_JEXEC') or die('Restricted access.');
 
@@ -166,7 +166,7 @@ class ButtonsModelCategory extends JModelList
 		{
 			$query->where('a.state = ' . (int) $state);
 		}
-		else 
+		else
 		{
 			// do not show trashed or disabled on the front-end
 			$query->where('a.state IN (1, 2)');

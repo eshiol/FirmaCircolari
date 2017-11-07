@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- 
+<!--
 /**
  * @version		3.5.11 plugins/content/buttons/forms/toolbar.xml
- * 
+ *
  * @package		Buttons
  * @subpackage	plg_content_buttons
  * @since		3.4
@@ -48,28 +48,28 @@
 				label="PLG_CONTENT_BUTTONS_OPTIONS_DEFAULT_LABEL"
 				description="PLG_CONTENT_BUTTONS_OPTIONS_DEFAULT_DESC"
 				/>
-			<field name="toolbar_lockondelete" type="radio" class="btn-group btn-group-yesno" default="" 
+			<field name="toolbar_lockondelete" type="radio" class="btn-group btn-group-yesno" default=""
 				label="PLG_CONTENT_BUTTONS_FIELD_LOCKONDELETE_LABEL" description="PLG_CONTENT_BUTTONS_FIELD_LOCKONDELETE_DESC">
 				<option value="">JGLOBAL_USE_GLOBAL</option>
 				<option value="1">JYES</option>
 				<option value="0">JNO</option>
 			</field>
-	        <field name="show_categoryblog" 
-	        	type="radio" 
-	        	default="" 
-	        	class="btn-group btn-group-yesno" 
-	        	description="PLG_CONTENT_BUTTONS_FIELD_SHOWCATEGORYBLOG_DESC" 
+	        <field name="show_categoryblog"
+	        	type="radio"
+	        	default=""
+	        	class="btn-group btn-group-yesno"
+	        	description="PLG_CONTENT_BUTTONS_FIELD_SHOWCATEGORYBLOG_DESC"
 	        	label="PLG_CONTENT_BUTTONS_FIELD_SHOWCATEGORYBLOG_LABEL"
 	        	>
 	          <option value="">JGLOBAL_USE_GLOBAL</option>
               <option value="1">JSHOW</option>
               <option value="0">JHIDE</option>
 	        </field>
-	        <field name="show_featured" 
-	        	type="radio" 
-	        	default="" 
-	        	class="btn-group btn-group-yesno" 
-	        	description="PLG_CONTENT_BUTTONS_FIELD_SHOWFEATURED_DESC" 
+	        <field name="show_featured"
+	        	type="radio"
+	        	default=""
+	        	class="btn-group btn-group-yesno"
+	        	description="PLG_CONTENT_BUTTONS_FIELD_SHOWFEATURED_DESC"
 	        	label="PLG_CONTENT_BUTTONS_FIELD_SHOWFEATURED_LABEL"
 	        	>
 	          <option value="">JGLOBAL_USE_GLOBAL</option>

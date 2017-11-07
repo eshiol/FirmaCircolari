@@ -1,7 +1,7 @@
 <?php
 /**
  * @version		3.5.11 plugins/system/buttons/buttons.php
- * 
+ *
  * @package		Buttons
  * @subpackage	plg_content_buttons
  * @since		3.4
@@ -15,7 +15,7 @@
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
  */
- 
+
 // no direct access
 defined('_JEXEC') or die('Restricted access.');
 
@@ -27,7 +27,7 @@ if (file_exists(JPATH_ADMINISTRATOR.'/components/com_buttons/helpers/buttons.php
 }
 
 class plgSystemButtons extends JPlugin
-{	
+{
 	/**
 	 * Load the language file on instantiation.
 	 *
@@ -35,15 +35,15 @@ class plgSystemButtons extends JPlugin
 	 * @since  3.1
 	 */
 	protected $autoloadLanguage = true;
-	
+
 	/**
 	 * Database object
 	 *
 	 * @var    JDatabaseDriver
 	 * @since  3.3
 	 */
-	protected $db;	
-	
+	protected $db;
+
 	/**
 	 * Constructor
 	 *
@@ -61,9 +61,9 @@ class plgSystemButtons extends JPlugin
 		}
 		JLog::addLogger(array('logger' => 'messagequeue', 'extension' => 'plg_system_buttons'), JLOG::ALL & ~JLOG::DEBUG, array('plg_system_buttons'));
 		JLog::add(__METHOD__, JLOG::DEBUG, 'plg_system_buttons');
-		
+
 		$app = JFactory::getApplication();
-		if ($app->getName() == 'administrator') 
+		if ($app->getName() == 'administrator')
 		{
 			if (!file_exists(JPATH_ADMINISTRATOR.'/components/com_buttons/helpers/buttons.php'))
 			{
@@ -71,7 +71,7 @@ class plgSystemButtons extends JPlugin
 			}
 		}
 	}
-	
+
 	/**
 	 * Method is called by index.php and administrator/index.php
 	 *
@@ -83,22 +83,22 @@ class plgSystemButtons extends JPlugin
 
 		if (!file_exists(JPATH_ADMINISTRATOR.'/components/com_buttons/helpers/buttons.php'))
 			return;
-		
+
 		$app 	= JFactory::getApplication();
 		if ($app->getName() != 'site') { return true;}
-		
+
 		$format = $app->input->get('format', '', 'string');
 		if ($format == 'feed') { return true;}
-		
+
 		$option = $app->input->get('option', '', 'string');
 		if ($option != 'com_content') { return true;}
-		
+
 		$view = $app->input->get('view', '', 'string');
 		if ($view != 'article') { return true;}
-		
+
 		$buttons = $app->input->get('buttons', '', 'string');
 		if ($buttons != 'report') { return true;}
-		
+
 		$authorisedViewLevels = JFactory::getUser()->getAuthorisedViewLevels();
 		$report_access = false;
 		$id = $app->input->get('id', '', 'string');
@@ -116,38 +116,38 @@ class plgSystemButtons extends JPlugin
 		}
 		if (!$report_access)
 		{
-			$app->redirect($this->urlRemoveVar(rawurldecode(JUri::getInstance()->toString(array('scheme', 'host', 'port', 'path', 'query', 'fragment'))), 'buttons'));	
+			$app->redirect($this->urlRemoveVar(rawurldecode(JUri::getInstance()->toString(array('scheme', 'host', 'port', 'path', 'query', 'fragment'))), 'buttons'));
 		}
 	}
-	
-	
+
+
 	/**
 	 * Add report icon
 	 *
 	 * @return  void
 	 */
-	function onAfterRender() 
+	function onAfterRender()
 	{
 		JLog::add(new JLogEntry(__METHOD__, JLOG::DEBUG, 'plg_system_buttons'));
-		
+
 		if (!file_exists(JPATH_ADMINISTRATOR.'/components/com_buttons/helpers/buttons.php'))
 			return;
-		
+
 		$app 	= JFactory::getApplication();
 		if ($app->getName() != 'site') { return true;}
-		
+
 		$format = $app->input->get('format', '', 'string');
 		if ($format == 'feed') { return true;}
-		
+
 		$option = $app->input->get('option', '', 'string');
 		if ($option != 'com_content') { return true;}
-		
+
 		$view = $app->input->get('view', '', 'string');
 		if ($view != 'article') { return true;}
-		
+
 		$id = $app->input->get('id', '', 'string');
 		$item = new StdClass();
-		if ((int)$id > 0) 
+		if ((int)$id > 0)
 		{
 			$query = $this->db->getQuery(true)
 				->select($this->db->qn(array('a.id','a.alias','a.attribs','a.catid','a.language')))
@@ -159,10 +159,10 @@ class plgSystemButtons extends JPlugin
 				->where($this->db->qn('a.id').'='.(int)$id)
 				;
 			$item = $this->db->setQuery($query)->loadObject();
-			
-			if (JPluginHelper::isEnabled('content', 'buttons')) 
+
+			if (JPluginHelper::isEnabled('content', 'buttons'))
 			{
-				if (!empty($item)) 
+				if (!empty($item))
 				{
 					$authorisedViewLevels = JFactory::getUser()->getAuthorisedViewLevels();
 					$report_access = false;
@@ -178,12 +178,12 @@ class plgSystemButtons extends JPlugin
 					}
 					$params = new JRegistry();
 					$params->loadString($item->attribs);
-					
+
 					$item->slug = $item->alias ? ($item->id . ':' . $item->alias) : $item->id;
 					$item->catslug = $item->category_alias ? ($item->catid . ':' . $item->category_alias) : $item->catid;
-	
+
 					$buffer = JResponse::getBody();
-					
+
 					$template = $this->params->get('template', 'TEXT');
 					//$legacy = $this->params->get('legacy', 0);
 					$buffer = JResponse::getBody();
@@ -194,11 +194,11 @@ class plgSystemButtons extends JPlugin
 							return;
 						}
 						$html = '<li class="print-icon">';
-						
+
 						$app = JFactory::getApplication();
 						$input = $app->input;
 						$request = $input->request;
-						
+
 						$url  = ContentHelperRoute::getArticleRoute($item->slug, $item->catid, $item->language);
 						$url .= '&buttons=report';
 
@@ -206,7 +206,7 @@ class plgSystemButtons extends JPlugin
 							$text = '<span class="icon-chart"></span>&nbsp;<span class="hidden">'.JText::_('PLG_SYSTEM_BUTTONS_REPORT').'</span>';
 						elseif ($template == 'DEFAULT')
 							$text = '<span class="hasTooltip icon-chart tip"></span>'.JText::_('PLG_SYSTEM_BUTTONS_REPORT');
-						else 
+						else
 							$text = JText::_('PLG_SYSTEM_BUTTONS_REPORT');
 						// $text = JText::_('PLG_SYSTEM_BUTTONS_REPORT_TEXT_'.$template);
 						/**
@@ -227,13 +227,13 @@ class plgSystemButtons extends JPlugin
 							$text = JText::_('PLG_SYSTEM_BUTTONS_REPORT');
 						}
 						*/
-						
+
 						$attribs['title']   = JText::_('PLG_SYSTEM_BUTTONS_REPORT');
 						$attribs['rel']     = 'nofollow';
-						
+
 						$html .= JHtml::_('link', JRoute::_($url), $text, $attribs);
 						$html .= '</li>';
-						
+
 						if ($template == 'LEGACY')
 						{
 							$pattern = '/<ul class="actions">(.*?)<\/ul>/s';
@@ -244,7 +244,7 @@ class plgSystemButtons extends JPlugin
 							$pattern = '/<ul class="dropdown-menu(.*?)">(.*?)<\/ul>/s';
 							$replacement = '<ul class="dropdown-menu$1">$2'.$html.'</ul>';
 						}
-						else 
+						else
 						{
 							$pattern = '/<ul class="dropdown-menu(.*?)">(.*?)<\/ul>/s';
 							$replacement = '<ul class="dropdown-menu$1">$2'.$html.'</ul>';
@@ -266,7 +266,7 @@ class plgSystemButtons extends JPlugin
 						$buffer = preg_replace($pattern, $replacement, $buffer);
 
 					}
-					else 
+					else
 					{
 						if ($template == 'LEGACY')
 						{
@@ -276,7 +276,7 @@ class plgSystemButtons extends JPlugin
 						{
 							$pattern = '/<ul class="dropdown-menu.*?">.*?<li class="print-icon">.*?href="(.*?)".*?<\/li>.*?<\/ul>/s';
 						}
-						else 
+						else
 						{
 							$pattern = '/<ul class="dropdown-menu.*?">.*?<li class="print-icon">.*?href="(.*?)".*?<\/li>.*?<\/ul>/s';
 						}
@@ -286,7 +286,7 @@ class plgSystemButtons extends JPlugin
 						{
 							$pattern = '/<ul class="actions.*?">.*?<li class="print-icon">.*?href="(.*?)".*?<\/li>.*?<\/ul>/s';
 						}
-						else 
+						else
 						{
 							$pattern = '/<ul class="dropdown-menu.*?">.*?<li class="print-icon">.*?href="(.*?)".*?<\/li>.*?<\/ul>/s';
 						}
@@ -302,9 +302,9 @@ class plgSystemButtons extends JPlugin
 								$text = '<span class="hasTooltip icon-download tip"></span>'.JText::_('PLG_SYSTEM_BUTTONS_CSV');
 							else
 								$text = JText::_('PLG_SYSTEM_BUTTONS_CSV');
-				
+
 							$attribs = array('rel' => 'nofollow', 'title'=> JText::_('PLG_SYSTEM_BUTTONS_CSV'));
-								
+
 							$html .= JHtml::_('link', JRoute::_($url), $text, $attribs);
 							$html .= '</li>';
 
@@ -316,14 +316,14 @@ class plgSystemButtons extends JPlugin
 								$text = '<span class="hasTooltip icon-cancel tip"></span>'.JText::_('PLG_SYSTEM_BUTTONS_CLOSE');
 							else
 								$text = JText::_('PLG_SYSTEM_BUTTONS_CLOSE');
-							
+
 							$attribs = array('rel' => 'nofollow', 'title'=> JText::_('PLG_SYSTEM_BUTTONS_CLOSE'));
-										
+
 							$html .= JHtml::_('link', JRoute::_($url), $text, $attribs);
 							$html .= '</li>';
-										
+
 							$replacement = str_replace($matches[1], $matches[1].'&buttons=report', $matches[0]);
-							$replacement = str_replace('</ul>', $html.'</ul>', $replacement); 
+							$replacement = str_replace('</ul>', $html.'</ul>', $replacement);
 							$buffer = preg_replace($pattern, $replacement, $buffer);
 						}
 					}
@@ -333,11 +333,11 @@ class plgSystemButtons extends JPlugin
 		}
 		return true;
 	}
-	
+
 	static function urlRemoveVar($pageURL, $key)
 	{
 		JLog::add(__METHOD__, JLOG::DEBUG, 'plg_system_buttons');
-		
+
 		$url = parse_url($pageURL);
 		if (!isset($url['query'])) return $pageURL;
 		parse_str($url['query'], $query_data);

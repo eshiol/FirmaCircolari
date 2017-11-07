@@ -1,7 +1,7 @@
 <?php
 /**
  * @version		3.5.11 plugins/content/buttons/buttons.php
- * 
+ *
  * @package		Buttons
  * @subpackage	plg_content_buttons
  * @since		3.4
@@ -15,7 +15,7 @@
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
  */
- 
+
 // no direct access
 defined('_JEXEC') or die('Restricted access.');
 
@@ -25,7 +25,7 @@ if (file_exists(JPATH_ADMINISTRATOR.'/components/com_buttons/helpers/buttons.php
 {
 	require_once JPATH_ADMINISTRATOR.'/components/com_buttons/helpers/buttons.php';
 	require_once JPATH_ADMINISTRATOR.'/components/com_buttons/helpers/category.php';
-	
+
 	JModelLegacy::addIncludePath(JPATH_SITE.'/components/com_buttons/models', 'ButtonsModel');
 }
 
@@ -38,15 +38,15 @@ class plgContentButtons extends JPlugin
 	 * @since  3.1
 	 */
 	protected $autoloadLanguage = true;
-	
+
 	/**
 	 * Database object
 	 *
 	 * @var    JDatabaseDriver
 	 * @since  3.3
 	 */
-	protected $db;	
-	
+	protected $db;
+
 	/**
 	 * A Registry object holding the global parameters for the plugin
 	 *
@@ -54,7 +54,7 @@ class plgContentButtons extends JPlugin
 	 * @since  3.5
 	 */
 	private $cparams = null;
-	
+
 	/**
 	 * Constructor
 	 *
@@ -75,7 +75,7 @@ class plgContentButtons extends JPlugin
 
 		//TODO: check com_buttons is installed and enabled
 		$app = JFactory::getApplication();
-		if ($app->getName() == 'administrator') 
+		if ($app->getName() == 'administrator')
 		{
 			if (!file_exists(JPATH_ADMINISTRATOR.'/components/com_buttons/helpers/buttons.php'))
 			{
@@ -99,16 +99,16 @@ class plgContentButtons extends JPlugin
 	public function onContentPrepare($context, &$row, $params, $page = 0)
 	{
 		JLog::add(new JLogEntry(__METHOD__, JLOG::DEBUG, 'plg_content_buttons'));
-		
+
 		if (!file_exists(JPATH_ADMINISTRATOR.'/components/com_buttons/helpers/buttons.php'))
 			return;
-		
+
 		$allowed_contexts = array('com_content.article');
 		if (!in_array($context, $allowed_contexts))
 		{
 			return true;
 		}
-	
+
 		if (JFactory::getApplication()->input->getString('buttons') == 'report')
 		{
 			$row->text = $row->introtext;
@@ -116,8 +116,8 @@ class plgContentButtons extends JPlugin
 		}
 		return true;
 	}
-	
-	
+
+
 	/**
 	 * Adds additional fields to the category editing form
 	 *
@@ -131,10 +131,10 @@ class plgContentButtons extends JPlugin
 	public function onContentPrepareForm($form, $data)
 	{
 		JLog::add(new JLogEntry(__METHOD__, JLOG::DEBUG, 'plg_content_buttons'));
-		
+
 		if (!file_exists(JPATH_ADMINISTRATOR.'/components/com_buttons/helpers/buttons.php'))
 			return;
-		
+
 		$app = JFactory::getApplication();
 		$formname = $form->getName();
 		if ($formname == 'com_content.article')
@@ -147,13 +147,13 @@ class plgContentButtons extends JPlugin
 		{
 			if ($formname == 'com_categories.categorycom_buttons')
 			{
-				JForm::addFormPath(__DIR__ . '/forms');	
+				JForm::addFormPath(__DIR__ . '/forms');
 				//Show specific forms based on categories
 				$form->loadFile('toolbar', false);
 			}
 			elseif ($formname == 'com_categories.categorycom_content')
 			{
-				JForm::addFormPath(__DIR__ . '/forms');	
+				JForm::addFormPath(__DIR__ . '/forms');
 				//Show specific forms based on categories
 				$form->loadFile('category', false);
 			}
@@ -177,22 +177,22 @@ class plgContentButtons extends JPlugin
 	{
 		JLog::add(new JLogEntry(__METHOD__, JLOG::DEBUG, 'plg_content_buttons'));
 		JLog::add(new JLogEntry('context: '.$context, JLOG::DEBUG, 'plg_content_buttons'));
-		
+
 		if (!file_exists(JPATH_ADMINISTRATOR.'/components/com_buttons/helpers/buttons.php'))
 			return;
-		
+
 		$allowed_contexts = array('com_content.article','com_content.featured','com_content.category');
 		if (!in_array($context, $allowed_contexts))
 		{
 			return;
 		}
-		
+
 		$html = '';
 		if (JFactory::getApplication()->input->getString('buttons') != 'report')
 		{
 			JLog::add(new JLogEntry('processing article: '.$row->title, JLOG::DEBUG, 'plg_content_buttons'));
 			$toolbars = ButtonsHelper::getToolbars($row, 'top');
-			
+
 			if (isset($row->asset_id))
 			{
 				$asset_id = $row->asset_id;
@@ -203,12 +203,12 @@ class plgContentButtons extends JPlugin
 				$article->load($row->id);
 				$asset_id = $article->asset_id;
 			}
-	
+
 			$clearfix = '';
 			foreach($toolbars as $catid)
 			{
 				JLog::add(new JLogEntry('toolbar: '.$catid, JLOG::DEBUG, 'plg_content_buttons'));
-				
+
 				$toolbar = JTable::getInstance('Category');
 				$toolbar->load($catid);
 				$tparams = new Registry;
@@ -216,7 +216,7 @@ class plgContentButtons extends JPlugin
 				$cparams = clone($this->cparams);
 				$cparams->merge($tparams);
 				JLog::add(new JLogEntry('params: '.print_r($cparams, true), JLOG::DEBUG, 'plg_content_buttons'));
-				
+
 				if (($context == 'com_content.article')
 					|| (($context == 'com_content.featured') && $cparams->get('show_featured'))
 					|| (($context == 'com_content.category') && $cparams->get('show_categoryblog'))
@@ -233,7 +233,7 @@ class plgContentButtons extends JPlugin
 		return $html;
 	}
 
-	
+
 	/**
 	 * Displays the toolbar at the bottom of the article
 	 *
@@ -249,24 +249,24 @@ class plgContentButtons extends JPlugin
 	public function onContentAfterDisplay($context, &$row, &$params, $page=0)
 	{
 		JLog::add(new JLogEntry(__METHOD__, JLOG::DEBUG, 'plg_content_buttons'));
-		
+
 		if (!file_exists(JPATH_ADMINISTRATOR.'/components/com_buttons/helpers/buttons.php'))
 		{
 			return;
 		}
-		
+
 		$allowed_contexts = array('com_content.article','com_content.featured','com_content.category');
 		if (!in_array($context, $allowed_contexts))
 		{
 			return;
 		}
-		
+
 		JLog::add(new JLogEntry('processing article: '.$row->title, JLOG::DEBUG, 'plg_content_buttons'));
 		$html = '';
 		if (JFactory::getApplication()->input->getString('buttons') != 'report')
-		{			
+		{
 			$toolbars = ButtonsHelper::getToolbars($row, 'bottom');
-		
+
 			if (isset($row->asset_id))
 			{
 				$asset_id = $row->asset_id;
@@ -277,13 +277,13 @@ class plgContentButtons extends JPlugin
 				$article->load($row->id);
 				$asset_id = $article->asset_id;
 			}
-		
+
 			$html = '';
 			$clearfix = '';
 			foreach($toolbars as $catid)
 			{
 				JLog::add(new JLogEntry('toolbar: '.$catid, JLOG::DEBUG, 'plg_content_buttons'));
-				
+
 				$toolbar = JTable::getInstance('Category');
 				$toolbar->load($catid);
 				$tparams = new Registry;
@@ -291,7 +291,7 @@ class plgContentButtons extends JPlugin
 				$cparams = clone($this->cparams);
 				$cparams->merge($tparams);
 				JLog::add(new JLogEntry('params: '.print_r($cparams, true), JLOG::DEBUG, 'plg_content_buttons'));
-				
+
 				if (($context == 'com_content.article')
 					|| (($context == 'com_content.featured') && $cparams->get('show_featured'))
 					|| (($context == 'com_content.category') && $cparams->get('show_categoryblog'))
@@ -305,7 +305,7 @@ class plgContentButtons extends JPlugin
 			}
 			$html .= $clearfix;
 		}
-		else 
+		else
 		{
 			$authorisedViewLevels = JFactory::getUser()->getAuthorisedViewLevels();
 			$report_access = false;
@@ -316,7 +316,7 @@ class plgContentButtons extends JPlugin
 				$toolbar->load($catid);
 				$tparams = new Registry;
 				$tparams->loadString($toolbar->params);
-				
+
 				if (in_array($tparams->get('report_access', 3), $authorisedViewLevels))
 				{
 					$report_access = true;
@@ -356,22 +356,22 @@ class plgContentButtons extends JPlugin
 					JLog::addLogger(array('text_file' => $this->cparams->get('log', 'eshiol.php'), 'extension' => 'com_buttons'), JLog::ALL, array('com_buttons'));
 				}
 				JLog::addLogger(array('logger' => 'messagequeue', 'extension' => 'com_buttons'), JLOG::ALL & ~JLOG::DEBUG, array('com_buttons'));
-				
+
 				JModelLegacy::addIncludePath(JPATH_SITE . '/components/com_buttons/models', 'ButtonsModel');
-				
+
 				/** @var ButtonsModelExtras $model */
 				$model = JModelLegacy::getInstance('Extras', 'ButtonsModel', array('ignore_request' => true));
-				
+
 				$model->setState('filter.asset_id', $asset_id);
 				if ($items = $model->getItems())
 				{
-					$style = (JFactory::getApplication()->input->getString('print') ? 'text' : 'buttons');						
+					$style = (JFactory::getApplication()->input->getString('print') ? 'text' : 'buttons');
 					$cparams = array();
 					$authorisedViewLevels = JFactory::getUser()->getAuthorisedViewLevels();
 					foreach ($items as $item)
 					{
-						JLog::add(new JLogEntry(print_r($item, true), JLOG::DEBUG, 'com_buttons'));		
-						
+						JLog::add(new JLogEntry(print_r($item, true), JLOG::DEBUG, 'com_buttons'));
+
 						$catid = $item->catid;
 						if (!isset($cparams[$catid]))
 						{
@@ -384,13 +384,13 @@ class plgContentButtons extends JPlugin
 							JLog::add(new JLogEntry('params: '.print_r($cparams[$catid], true), JLOG::DEBUG, 'com_buttons'));
 						}
 
-						$style = (JFactory::getApplication()->input->getString('print') 
-							? 'text' 
-								: $cparams[$catid]->get('report_style', 0) 
-								? 'text' 
+						$style = (JFactory::getApplication()->input->getString('print')
+							? 'text'
+								: $cparams[$catid]->get('report_style', 0)
+								? 'text'
 								: 'buttons'
 							);
-						
+
 						if (in_array($cparams[$catid]->get('report_access', 3), $authorisedViewLevels))
 						{
 							$item->toolbar = ButtonsHelper::getToolbar($catid, $asset_id, $item->editor_user_id, false, $style);

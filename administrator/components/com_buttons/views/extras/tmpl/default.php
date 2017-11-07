@@ -1,7 +1,7 @@
 <?php
 /**
  * @version		3.5.11 administrator/components/com_buttons/views/extras/tmpl/default.php
- * 
+ *
  * @package		Buttons
  * @subpackage	com_buttons
  * @since		3.4
@@ -15,7 +15,7 @@
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
  */
- 
+
 // no direct access
 defined('_JEXEC') or die('Restricted access.');
 
@@ -118,9 +118,9 @@ JFactory::getDocument()->addScriptDeclaration('
 							<?php echo JHtml::_('grid.sort', 'JCATEGORY', 'category_title', $listDirn, $listOrder); ?>
 						</th>
 						<th class="center" style="min-width:300px;">
-							<?php 
+							<?php
 							echo JText::_('COM_BUTTONS_HEADING_VALUE');
-							//echo JHtml::_('grid.sort', 'COM_BUTTONS_HEADING_VALUE', 'a.value', $listDirn, $listOrder); 
+							//echo JHtml::_('grid.sort', 'COM_BUTTONS_HEADING_VALUE', 'a.value', $listDirn, $listOrder);
 							?>
 						</th>
 						<th width="1%" class="nowrap center hidden-phone">
@@ -149,7 +149,7 @@ JFactory::getDocument()->addScriptDeclaration('
 						<td class="center">
 							<div class="btn-group">
 								<?php echo JHtml::_('jgrid.published', $item->state, $i, 'extras.', $canChange, 'cb'); ?>
-								<?php 
+								<?php
 								// Create dropdown items
 								if ($item->state == 2)
 									JHtml::_('actionsdropdown.publish', 'cb' . $i, 'buttons');
@@ -161,16 +161,16 @@ JFactory::getDocument()->addScriptDeclaration('
 									JHtmlActionsDropdown::addCustomItem('delete', 'delete', 'cb' . $i, 'extras.delete');
 								else
 									JHtml::_('actionsdropdown.unpublish', 'cb' . $i, 'buttons');
-	
+
 								// Render dropdown list
 								echo JHtml::_('actionsdropdown.render', $this->escape($item->title));
 								?>
-							</div>								
-						</td>						
+							</div>
+						</td>
 						<td class="nowrap has-context">
 							<?php echo $this->escape($item->title); ?>
 							<div class="small break-word">
-								<?php 
+								<?php
 								$i = strrpos($item->alias, '.');
 								$type_alias = substr($item->alias, 0, $i);
 								$id = substr($item->alias, $i+1);
@@ -181,9 +181,9 @@ JFactory::getDocument()->addScriptDeclaration('
 								$contentType = $registry->get('special')->type;
 								$table = JTable::getInstance($contentType);
 								$table->load($id);
-								$item->alias = $table->alias;								
+								$item->alias = $table->alias;
 								echo JText::sprintf('JGLOBAL_LIST_ALIAS', $this->escape($item->alias)); ?>
-							</div>							
+							</div>
 						</td>
 						<td class="small">
 							<a class="hasTooltip" href="<?php echo JRoute::_('index.php?option=com_users&task=user.edit&id=' . (int) $item->editor_user_id); ?>" title="<?php echo JText::_('JAUTHOR'); ?>">
@@ -191,7 +191,7 @@ JFactory::getDocument()->addScriptDeclaration('
 						</td>
 						<td class="small">
 							<?php echo $this->escape($item->category_title); ?>
-						</td>						
+						</td>
 						<td>
 							<?php echo ButtonsHelper::getToolbar($item->catid, $item->asset_id, $item->editor_user_id, false, 'buttons'); ?>
 						</td>

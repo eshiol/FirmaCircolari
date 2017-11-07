@@ -1,7 +1,7 @@
 <?php
 /**
  * @version		3.5.11 components/com_buttons/models/extras.php
- * 
+ *
  * @package		Buttons
  * @subpackage	com_buttons
  * @since		3.4.7
@@ -15,7 +15,7 @@
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
  */
- 
+
 // no direct access
 defined('_JEXEC') or die('Restricted access.');
 
@@ -45,12 +45,12 @@ class ButtonsModelExtras extends JModelList
 	public function __construct($config = array())
 	{
 		JLog::add(new JLogEntry(__METHOD__, JLOG::DEBUG, 'com_buttons'));
-		
+
 		if (empty($config['filter_fields']))
 		{
 			$config['filter_fields'] = array(
 				'id', 'a.id',
-				'asset_id', 'a.asset_id', 
+				'asset_id', 'a.asset_id',
 				'title', 'b.title',
 				'catid', 'a.catid', 'category_title',
 				'editor_user_id', 'a.editor_user_id', 'editor_name',
@@ -74,7 +74,7 @@ class ButtonsModelExtras extends JModelList
 	protected function populateState($ordering = null, $direction = null)
 	{
 		JLog::add(new JLogEntry(__METHOD__, JLOG::DEBUG, 'com_buttons'));
-		
+
 		// Load the filter state.
 		$author = $this->getUserStateFromRequest($this->context . '.filter.author_id', 'filter_author_id');
 		$this->setState('filter.author_id', $author);
@@ -115,13 +115,13 @@ class ButtonsModelExtras extends JModelList
 	protected function getStoreId($id = '')
 	{
 		JLog::add(new JLogEntry(__METHOD__, JLOG::DEBUG, 'com_buttons'));
-		
+
 		// Compile the store id.
 		$id .= ':' . $this->getState('filter.search');
 		$id .= ':' . $this->getState('filter.state');
 		$id .= ':' . $this->getState('filter.category_id');
 		$id .= ':' . $this->getState('filter.editor_user_id');
-		
+
 		return parent::getStoreId($id);
 	}
 
@@ -135,53 +135,53 @@ class ButtonsModelExtras extends JModelList
 	protected function getListQuery()
 	{
 		JLog::add(new JLogEntry(__METHOD__, JLOG::DEBUG, 'com_buttons'));
-		
+
 		// Filter by asset id
 		if (!($asset_id = $this->getState('filter.asset_id')))
 		{
 			return;
 		}
 		JLog::add(new JLogEntry('asset_id: '.$asset_id, JLOG::DEBUG, 'com_buttons'));
-		
+
 		if ($catid = $this->getState('filter.category_id'))
 		{
 			$toolbars = array($catid);
 		}
-		else 
+		else
 		{
 			$asset = JTable::getInstance('Asset');
 			$asset->load($asset_id);
 			$asset_name = $asset->name;
 			JLog::add(new JLogEntry('asset_name: '.$asset_name, JLOG::DEBUG, 'com_buttons'));
-			
+
 			$i = strrpos($asset_name, '.');
 			$type_alias = substr($asset_name, 0, $i);
 			JLog::add(new JLogEntry('type_alias: '.$type_alias, JLOG::DEBUG, 'com_buttons'));
-			$id = substr($asset_name, $i + 1);	
+			$id = substr($asset_name, $i + 1);
 			JLog::add(new JLogEntry('id: '.$id, JLOG::DEBUG, 'com_buttons'));
-			
+
 			$contenttype = JTable::getInstance('Contenttype');
 			$type_id = $contenttype->getTypeId($type_alias);
 			$contenttype->load($type_id);
-			
+
 			$row = $contenttype->getContentTable();
 			$row->load($id);
-			
+
 			$toolbars = ButtonsHelper::getToolbars($row);
-			
+
 			JLog::add(new JLogEntry('toolbars: '.print_r($toolbars, true), JLOG::DEBUG, 'com_buttons'));
 		}
-		
+
 		// Create a new query object.
 		$db = $this->getDbo();
 		$gquery = null;
 		$user = JFactory::getUser();
-		
-		JLog::add(new JLogEntry('cparams: '.print_r($this->cparams, true), JLOG::DEBUG, 'com_buttons'));		
+
+		JLog::add(new JLogEntry('cparams: '.print_r($this->cparams, true), JLOG::DEBUG, 'com_buttons'));
 		foreach($toolbars as $catid)
 		{
 			JLog::add(new JLogEntry('toolbar: '.$catid, JLOG::DEBUG, 'com_buttons'));
-		
+
 			$toolbar = JTable::getInstance('Category');
 			$toolbar->load($catid);
 			$tparams = new Registry;
@@ -202,7 +202,7 @@ class ButtonsModelExtras extends JModelList
 					// Join over the view levels
 					->join('LEFT', $db->qn('#__viewlevels').' AS '.$db->qn('vl').' ON '.$db->qn('c.access').'='.$db->qn('vl.id'))
 					;
-				
+
 				// Filter by toolbar
 				if (is_numeric($catid))
 				{
@@ -250,7 +250,7 @@ class ButtonsModelExtras extends JModelList
 				$query = $db->getQuery(true)
 					->select($fieldlist)
 					->select($db->qn('uc.name','editor_name'))
-					->select($db->qn(array('a.value','a.modified','a.catid')))				
+					->select($db->qn(array('a.value','a.modified','a.catid')))
 					->from($db->qn('#__buttons_extras').' a')
 					// do not show trashed or disabled
 					->where('a.state IN (1, 2)')
@@ -277,7 +277,7 @@ class ButtonsModelExtras extends JModelList
 			{
 				$gquery->unionDistinct($query);
 			}
-			else 
+			else
 			{
 				$gquery = $query;
 			}

@@ -1,7 +1,7 @@
 <?php
 /**
  * @version		3.5.11 administrator/components/com_buttons/forms/fields/buttons.php
- * 
+ *
  * @package		Buttons
  * @subpackage	plg_content_buttons
  * @since		3.4
@@ -15,7 +15,7 @@
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
  */
- 
+
 // no direct access
 defined('_JEXEC') or die('Restricted access.');
 
@@ -30,7 +30,7 @@ class JFormFieldButtons extends JFormFieldList
 	 * A flexible buttons list that respects access controls
 	 *
 	 * @var    string
-	 * 
+	 *
 	 * @since  3.4
 	 */
 	public $type = 'Buttons';
@@ -39,7 +39,7 @@ class JFormFieldButtons extends JFormFieldList
 	 * com_buttons parameters
 	 *
 	 * @var    \Joomla\Registry\Registry
-	 * 
+	 *
 	 * @since  3.4
 	 */
 	protected $comParams = null;
@@ -52,9 +52,9 @@ class JFormFieldButtons extends JFormFieldList
 	public function __construct()
 	{
 		JLog::add(new JLogEntry(__METHOD__, JLOG::DEBUG, 'com_buttons'));
-		
+
 		parent::__construct();
-		
+
 		// Load com_buttons config
 		$this->comParams = JComponentHelper::getParams('com_buttons');
 	}
@@ -69,7 +69,7 @@ class JFormFieldButtons extends JFormFieldList
 	protected function getInput()
 	{
 		JLog::add(new JLogEntry(__METHOD__, JLOG::DEBUG, 'com_buttons'));
-		
+
 		// Get the field id
 		$id    = isset($this->element['id']) ? $this->element['id'] : null;
 		$cssId = '#' . $this->getId($id, $this->element['name']);
@@ -101,7 +101,7 @@ class JFormFieldButtons extends JFormFieldList
 	protected function getOptions()
 	{
 		JLog::add(new JLogEntry(__METHOD__, JLOG::DEBUG, 'com_buttons'));
-		
+
 		$published = $this->element['published']? $this->element['published'] : array(0,1);
 
 		$db    = JFactory::getDbo();

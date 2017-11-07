@@ -1,7 +1,7 @@
 <?php
 /**
  * @version		3.5.11 administrator/components/com_buttons/forms/fields/button.php
- * 
+ *
  * @package		Buttons
  * @subpackage	plg_content_buttons
  * @since		3.4
@@ -15,7 +15,7 @@
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
  */
- 
+
 // no direct access
 defined('_JEXEC') or die('Restricted access.');
 
@@ -30,7 +30,7 @@ class JFormFieldButton extends JFormFieldList
 	 * A flexible button list that respects access controls
 	 *
 	 * @var    string
-	 * 
+	 *
 	 * @since  3.4
 	 */
 	public $type = 'Button';
@@ -39,7 +39,7 @@ class JFormFieldButton extends JFormFieldList
 	 * com_buttons parameters
 	 *
 	 * @var    \Joomla\Registry\Registry
-	 * 
+	 *
 	 * @since  3.4
 	 */
 	protected $comParams = null;

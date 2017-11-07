@@ -5,7 +5,7 @@
  *
  * @author		Helios Ciancio <info@eshiol.it>
  * @link		http://www.eshiol.it
- * @copyright	Copyright (C) 2015, 2017 Helios Ciancio. All Rights Reserved
+ * @copyright	Copyright (C) 2015, 2016 Helios Ciancio. All Rights Reserved
  * @license		http://www.gnu.org/licenses/gpl-3.0.html GNU/GPL v3
  * Buttons is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
@@ -15,6 +15,8 @@
 
 // no direct access
 defined('_JEXEC') or die('Restricted access.');
+
+use Joomla\Registry\Registry;
 
 /**
  * Installation class to perform additional changes during install/uninstall/update
@@ -34,30 +36,36 @@ class Com_ButtonsInstallerScript
 	 */
 	public function install($parent)
 	{
+		JLog::add(new JLogEntry(__METHOD__, JLOG::DEBUG, 'com_buttons'));
+
+		// Copy images
+		JFolder::copy(__DIR__.'/images', JPATH_ROOT.'/images', '', true);
+
+		$category = $this->addCategory('Uncategorised', 1, 2);
+		$this->addButton('Demo',	1, $category->id, 1, 1, 'demo', 64, 64);
+
 		// Enable plugins
 		$db  = JFactory::getDbo();
-		
-		$query = $db->getQuery(true)
-			->update('#__extensions')
-			->set($db->qn('enabled') . ' = 1')
-			->where($db->qn('type') . ' = ' . $db->quote('plugin'))
-			->where($db->qn('folder') . ' = ' . $db->quote('content'))
-			->where($db->qn('element') . ' = ' . $db->quote('buttons'))
-			;
-		$db->setQuery($query);
-		$db->execute();
-		
-		$query = $db->getQuery(true)
-			->update('#__extensions')
-			->set($db->qn('enabled') . ' = 1')
-			->where($db->qn('type') . ' = ' . $db->quote('plugin'))
-			->where($db->qn('folder') . ' = ' . $db->quote('system'))
-			->where($db->qn('element') . ' = ' . $db->quote('buttons'))
-			;
-		$db->setQuery($query);
-		$db->execute();
+
+		$db->setQuery(
+			$db->getQuery(true)
+				->update('#__extensions')
+				->set($db->qn('enabled') . ' = 1')
+				->where($db->qn('type') . ' = ' . $db->quote('plugin'))
+				->where($db->qn('folder') . ' = ' . $db->quote('content'))
+				->where($db->qn('element') . ' = ' . $db->quote('buttons'))
+		)->execute();
+
+		$db->setQuery(
+			$db->getQuery(true)
+				->update('#__extensions')
+				->set($db->qn('enabled') . ' = 1')
+				->where($db->qn('type') . ' = ' . $db->quote('plugin'))
+				->where($db->qn('folder') . ' = ' . $db->quote('system'))
+				->where($db->qn('element') . ' = ' . $db->quote('buttons'))
+		)->execute();
 	}
-	
+
 	/**
 	 * Called on uninstallation
 	 *
@@ -65,27 +73,27 @@ class Com_ButtonsInstallerScript
 	 */
 	public function uninstall(JAdapterInstance $adapter)
 	{
+		JLog::add(new JLogEntry(__METHOD__, JLOG::DEBUG, 'com_buttons'));
+
 		$db = JFactory::getDbo();
-		
+
 		if (!$db->setQuery(
 				$db->getQuery(true)
-				->select('count(*)')
-				->from('#__categories')
-				->where('extension='.$db->q('com_buttons'))
+					->select('count(*)')
+					->from('#__categories')
+					->where('extension='.$db->q('com_buttons'))
 				)->LoadResult()
-				&&
-				!$db->setQuery(
-						$db->getQuery(true)
-						->select('count(*)')
-						->from('#__buttons')
-						)->LoadResult()
-				&&
-				!$db->setQuery(
-						$db->getQuery(true)
-						->select('count(*)')
-						->from('#__buttons_extras')
-						)->LoadResult()
-				)
+			&& !$db->setQuery(
+				$db->getQuery(true)
+					->select('count(*)')
+					->from('#__buttons')
+				)->LoadResult()
+			&& !$db->setQuery(
+				$db->getQuery(true)
+					->select('count(*)')
+					->from('#__buttons_extras')
+				)->LoadResult()
+			)
 		{
 			$db->setQuery("DELETE FROM `#__content_types` WHERE `type_alias` IN ('com_buttons.button', 'com_buttons.category');")->execute();
 			$db->setQuery("DROP TABLE IF EXISTS `#__buttons`;")->execute();
@@ -95,34 +103,34 @@ class Com_ButtonsInstallerScript
 		{
 			// Preserve categories for this component bugs #11490
 			$db->setQuery(
-					$db->getQuery(true)
+				$db->getQuery(true)
 					->update('#__categories')
 					->set('extension=CONCAT('.$db->q('!').',extension,'.$db->q('!').')')
 					->where('extension='.$db->q('com_buttons'))
-					)->execute();
+			)->execute();
 		}
-		
+
 		// Disable plugins
 		$db->setQuery(
-				$db->getQuery(true)
+			$db->getQuery(true)
 				->update('#__extensions')
 				->set($db->qn('enabled') . ' = 0')
 				->where($db->qn('type') . ' = ' . $db->quote('plugin'))
 				->where($db->qn('folder') . ' = ' . $db->quote('content'))
 				->where($db->qn('element') . ' = ' . $db->quote('buttons'))
-				)->execute();
-				
-				$db->setQuery(
-						$db->getQuery(true)
-						->update('#__extensions')
-						->set($db->qn('enabled') . ' = 0')
-						->where($db->qn('type') . ' = ' . $db->quote('plugin'))
-						->where($db->qn('folder') . ' = ' . $db->quote('system'))
-						->where($db->qn('element') . ' = ' . $db->quote('buttons'))
-						)->execute();
+		)->execute();
+
+		$db->setQuery(
+			$db->getQuery(true)
+				->update('#__extensions')
+				->set($db->qn('enabled') . ' = 0')
+				->where($db->qn('type') . ' = ' . $db->quote('plugin'))
+				->where($db->qn('folder') . ' = ' . $db->quote('system'))
+				->where($db->qn('element') . ' = ' . $db->quote('buttons'))
+		)->execute();
 	}
-	
-	
+
+
 	/**
 	 * Function to create a new category
 	 *
@@ -136,10 +144,12 @@ class Com_ButtonsInstallerScript
 	 */
 	private function addCategory($title, $state=0, $access=2, $params='{"category_layout":"","image":""}')
 	{
+		JLog::add(new JLogEntry(__METHOD__, JLOG::DEBUG, 'com_buttons'));
+
 		// Initialize a new category
 		/** @type  JTableCategory  $category  */
 		$category = JTable::getInstance('Category');
-		
+
 		// Check if the Uncategorised category exists before adding it
 		if (!$category->load(array('extension' => 'com_buttons', 'title' => $title)))
 		{
@@ -151,32 +161,32 @@ class Com_ButtonsInstallerScript
 			$category->params = $params;
 			$category->metadata = '{"author":"","robots":""}';
 			$category->language = '*';
-			
+
 			// Set the location in the tree
 			$category->setLocation(1, 'last-child');
-			
+
 			// Check to make sure our data is valid
 			if (!$category->check())
 			{
 				JFactory::getApplication()->enqueueMessage(JText::sprintf('COM_BUTTONS_ERROR_INSTALL_CATEGORY', $category->getError()));
-				
+
 				return;
 			}
-			
+
 			// Now store the category
 			if (!$category->store(true))
 			{
 				JFactory::getApplication()->enqueueMessage(JText::sprintf('COM_BUTTONS_ERROR_INSTALL_CATEGORY', $category->getError()));
-				
+
 				return;
 			}
-			
+
 			// Build the path for our category
 			$category->rebuildPath($category->id);
 		}
 		return $category;
 	}
-	
+
 	/**
 	 * method to run before an install/update/uninstall method
 	 *
@@ -190,20 +200,22 @@ class Com_ButtonsInstallerScript
 	 */
 	function preflight($type, $parent)
 	{
+		JLog::add(new JLogEntry(__METHOD__, JLOG::DEBUG, 'com_buttons'));
+
 		if ($type == 'install')
 		{
 			$db = JFactory::getDbo();
-			
+
 			// Recovery categories for this component bugs #11490
 			$db->setQuery(
 				$db->getQuery(true)
-				->update('#__categories')
-				->set('extension=SUBSTR(extension, 2, CHAR_LENGTH(extension) -2)')
-				->where('extension='.$db->q('!com_buttons!'))
-				)->execute();
+					->update('#__categories')
+					->set('extension=SUBSTR(extension, 2, CHAR_LENGTH(extension) -2)')
+					->where('extension='.$db->q('!com_buttons!'))
+			)->execute();
 		}
 	}
-	
+
 	/**
 	 * Method to run after the install routine.
 	 *
@@ -216,29 +228,18 @@ class Com_ButtonsInstallerScript
 	 */
 	public function postflight($type, $parent)
 	{
+		JLog::add(new JLogEntry(__METHOD__, JLOG::DEBUG, 'com_buttons'));
+
 		// Only execute database changes on MySQL databases
 		$dbName = JFactory::getDbo()->name;
-		
+
 		if (strpos($dbName, 'mysql') !== false)
 		{
 			// Add Missing Table Colums if needed
 			$this->addColumnsIfNeeded();
 		}
-		
-		if (($type == 'install') or ($type == 'update'))
-		{
-			$category = $this->addCategory('Uncategorised', 1, 2);
-		}
-		
-		if ($type == 'install')
-		{
-			// Copy images
-			JFolder::copy(__DIR__.'/admin/images', JPATH_ROOT.'/images/buttons', '', true);
-			
-			$this->addButton('Demo',	1, $category->id, 1, 1, 'demo', 64, 64);
-		}
 	}
-	
+
 	/**
 	 * Method to add colums from #__buttons_extra if they are missing.
 	 *
@@ -248,9 +249,11 @@ class Com_ButtonsInstallerScript
 	 */
 	private function addColumnsIfNeeded()
 	{
+		JLog::add(new JLogEntry(__METHOD__, JLOG::DEBUG, 'com_buttons'));
+
 		$db    = JFactory::getDbo();
 		$table = $db->getTableColumns('#__buttons_extras');
-		
+
 		if (!array_key_exists('modified', $table))
 		{
 			$sql = 'ALTER TABLE ' . $db->qn('#__buttons_extras') . ' ADD COLUMN ' . $db->qn('modified') . "datetime NOT NULL DEFAULT '0000-00-00 00:00:00'";
@@ -258,7 +261,7 @@ class Com_ButtonsInstallerScript
 			$db->execute();
 		}
 	}
-	
+
 	/**
 	 * Function to create a new button
 	 *
@@ -274,12 +277,13 @@ class Com_ButtonsInstallerScript
 	 */
 	private function addButton($title, $value, $catid, $state=1, $access=1, $img, $height=32, $width=32)
 	{
-		// Register the class aliases for Framework classes that have replaced their Platform equivilents
-		require_once JPATH_ADMINISTRATOR . '/components/com_buttons/tables/button.php';
+		JLog::add(new JLogEntry(__METHOD__, JLOG::DEBUG, 'com_buttons'));
+
 		// Initialize a new Button
 		/** @type  ButtonsTableButton  $button  */
+		require_once JPATH_ADMINISTRATOR.'/components/com_buttons/tables/button.php';
+
 		$button = JTable::getInstance('Button', 'ButtonsTable');
-		
 		if (!$button->load(array('alias' => strtolower($title), 'catid' => $catid)))
 		{
 			$button->title = $title;
@@ -294,20 +298,20 @@ class Com_ButtonsInstallerScript
 			$images->set('width', $width);
 			$button->images = $images->toString('JSON');
 			$button->language = '*';
-			
+
 			// Check to make sure our data is valid
 			if (!$button->check())
 			{
 				JFactory::getApplication()->enqueueMessage(JText::sprintf('COM_BUTTONS_ERROR_INSTALL_BUTTON', $button->getError()));
-				
+
 				return;
 			}
-			
+
 			// Now store the button
 			if (!$button->store(true))
 			{
 				JFactory::getApplication()->enqueueMessage(JText::sprintf('COM_BUTTONS_ERROR_INSTALL_BUTTON', $button->getError()));
-				
+
 				return;
 			}
 		}

@@ -1,7 +1,7 @@
 <?php
 /**
  * @version		3.5.11 components/com_buttons/layouts/text.php
- * 
+ *
  * @package		Buttons
  * @subpackage	com_buttons
  * @since		3.4
@@ -15,7 +15,7 @@
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
  */
- 
+
 // no direct access
 defined('_JEXEC') or die('Restricted access.');
 
@@ -45,6 +45,6 @@ if (count($displayData->buttons) && $default)
 	$toolbar->load(array_values($displayData->buttons)[0]->catid);
 	$tparams = new Registry;
 	$tparams->loadString($toolbar->params);
-	
+
 	echo '<div>'.$tparams->get('toolbar_default').'</div>';
 }

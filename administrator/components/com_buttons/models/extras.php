@@ -1,7 +1,7 @@
 <?php
 /**
  * @version		3.5.11 administrator/components/com_buttons/models/extras.php
- * 
+ *
  * @package		Buttons
  * @subpackage	com_buttons
  * @since		3.4
@@ -15,7 +15,7 @@
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
  */
- 
+
 // no direct access
 defined('_JEXEC') or die('Restricted access.');
 
@@ -35,12 +35,12 @@ class ButtonsModelExtras extends JModelList
 	public function __construct($config = array())
 	{
 		JLog::add(new JLogEntry(__METHOD__, JLOG::DEBUG, 'com_buttons'));
-		
+
 		if (empty($config['filter_fields']))
 		{
 			$config['filter_fields'] = array(
 				'id', 'a.id',
-				'asset_id', 'a.asset_id', 
+				'asset_id', 'a.asset_id',
 				'title', 'b.title',
 				'catid', 'a.catid', 'category_title',
 				'editor_user_id', 'a.editor_user_id', 'editor_name',
@@ -63,7 +63,7 @@ class ButtonsModelExtras extends JModelList
 	protected function populateState($ordering = null, $direction = null)
 	{
 		JLog::add(new JLogEntry(__METHOD__, JLOG::DEBUG, 'com_buttons'));
-		
+
 		// Load the filter state.
 		$author = $this->getUserStateFromRequest($this->context . '.filter.author_id', 'filter_author_id');
 		$this->setState('filter.author_id', $author);
@@ -107,14 +107,14 @@ class ButtonsModelExtras extends JModelList
 	protected function getStoreId($id = '')
 	{
 		JLog::add(new JLogEntry(__METHOD__, JLOG::DEBUG, 'com_buttons'));
-		
+
 		// Compile the store id.
 		$id .= ':' . $this->getState('filter.search');
 		$id .= ':' . $this->getState('filter.state');
 		$id .= ':' . $this->getState('filter.content_id');
 		$id .= ':' . $this->getState('filter.category_id');
 		$id .= ':' . $this->getState('filter.editor_user_id');
-		
+
 		return parent::getStoreId($id);
 	}
 
@@ -128,7 +128,7 @@ class ButtonsModelExtras extends JModelList
 	protected function getListQuery()
 	{
 		JLog::add(new JLogEntry(__METHOD__, JLOG::DEBUG, 'com_buttons'));
-		
+
 		// Create a new query object.
 		$db = $this->getDbo();
 		$query = $db->getQuery(true);
@@ -148,7 +148,7 @@ class ButtonsModelExtras extends JModelList
 			->select('b.title AS title, b.name AS alias')
 			->join('LEFT', $db->quoteName('#__assets').' AS b ON '.$db->quoteName('a.asset_id').'='.$db->quoteName('b.id'));
 		;
-		
+
 		// Join over the users for the checked out user.
 		$query->select('uc.name AS editor_name')
 			->join('LEFT', '#__users AS uc ON uc.id=a.editor_user_id');
@@ -179,7 +179,7 @@ class ButtonsModelExtras extends JModelList
 			$asset_id = $article->asset_id;
 			$query->where('a.asset_id = ' . (int) $contentId);
 		}
-		
+
 		// Filter by category.
 		$categoryId = $this->getState('filter.category_id');
 
@@ -218,7 +218,7 @@ class ButtonsModelExtras extends JModelList
 		{
 			$query->order($db->escape($orderCol . ' ' . $orderDirn));
 		}
-		
+
 		JLog::add(new JLogEntry($query, JLOG::DEBUG, 'com_buttons'));
 		return $query;
 	}

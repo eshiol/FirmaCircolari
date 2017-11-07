@@ -6,7 +6,7 @@ jQuery(document).ready(function($)
 		$self.removeClass("pressing");
 	});
 
-	
+
 	$(".com_buttons").click(function(e)
 	{
 		e.preventDefault();
@@ -27,26 +27,26 @@ jQuery(document).ready(function($)
 				'asset_id':0,
 				'catid':0,
 				'id':0
-				}; 
-			
+				};
+
 			for (var i = 0, len = params.length; i < len; i++) {
 				var pair = params[i].split('=');
 				data[pair[0]] = pair[1];
 			}
-			
+
 			if (Joomla.JDEBUG && console && console.log) console.log(data);
 
 			var href = this.href.substr(0, this.href.indexOf("?"));
 
 			jQuery.post(href, data)
 			.done(function(data) {
-				if (Joomla.JDEBUG && console && console.log) console.log(data);	
+				if (Joomla.JDEBUG && console && console.log) console.log(data);
 				var response = jQuery.parseJSON(data);
 				if (response.success)
 				{
 					$.each(response.buttons, function(index, item) {
-		        		if (Joomla.JDEBUG && console && console.log) 
-		        		{	        			
+		        		if (Joomla.JDEBUG && console && console.log)
+		        		{
 				        	if (item.value > 0)
 				        		msg = 'enabling...';
 		        			else
@@ -57,7 +57,7 @@ jQuery(document).ready(function($)
 				        		+' - id: '+item.id
 				        		+' - value: '+item.value
 				        		+')';
-		        			console.log(msg);	        				
+		        			console.log(msg);
 		        		}
 			        	if (item.value > 0)
 			        	{

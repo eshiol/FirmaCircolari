@@ -1,7 +1,7 @@
 <?php
 /**
  * @version		3.5.11 administrator/components/com_buttons/helpers/buttons.php
- * 
+ *
  * @package		Buttons
  * @subpackage	com_buttons
  * @since		3.4
@@ -15,7 +15,7 @@
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.
  */
- 
+
 // no direct access
 defined('_JEXEC') or die('Restricted access.');
 
@@ -27,35 +27,35 @@ use Joomla\Registry\Registry;
 class ButtonsHelper
 {
 	static private $_buttons = array();
-	
+
 	static function getToolbar($catid, $asset_id, $userid, $writable, $style="buttons")
 	{
 		JLog::add(new JLogEntry(__METHOD__, JLOG::DEBUG, 'com_buttons'));
 		JLog::add(new JLogEntry('toolbar: '.$catid, JLOG::DEBUG, 'com_buttons'));
-		
+
 		$db = JFactory::getDbo();
 		$basepath = rtrim(JURI::root(true), '/') . '/';
-	
+
 		require_once JPATH_ADMINISTRATOR.'/components/com_buttons/helpers/category.php';
 		require_once JPATH_SITE.'/components/com_buttons/models/category.php';
 		$model = JModelLegacy::getInstance('Category', 'ButtonsModel', array('ignore_request' => true));
 		$model->setState('category.id', $catid);
 		$model->setState('filter.c.published', 1);
 		$model->setState('filter.state', 1);
-		
+
 		$app    = JFactory::getApplication();
 		$isAdmin = $app->isAdmin();
 		$isReport =  $app->input->getString('buttons') == 'report';
 		$model->setState('filter.report', $isAdmin || $isReport);
-		
+
 		$items = $model->getItems();
 		if (!$items)
 		{
 			return;
 		}
-		
+
 		$params = JComponentHelper::getParams('com_buttons');
-		
+
 		$toolbar = JTable::getInstance('Category');
 		$toolbar->load($catid);
 		$tparams = new Registry;
@@ -79,7 +79,7 @@ class ButtonsHelper
 			} catch (Exception $e) {
 			}
 		}
-		
+
 		$query = $db->getQuery(true)
 			->select($db->qn('state'))
 			->from($db->qn('#__buttons_extras'))
@@ -104,7 +104,7 @@ class ButtonsHelper
 		if (!$isAdmin)
 			$query->where($db->qn('state').' IN (1, 2)');
 		$value = $db->setQuery($query)->loadObject();
-		
+
 		$toolbar = new StdClass();
 		$toolbar->catid=$catid;
 		$toolbar->asset_id=$asset_id;
@@ -118,7 +118,7 @@ class ButtonsHelper
 			$temp = $item->images;
 			$item->images = new Registry;
 			$item->images->loadString($temp, 'JSON');
-				
+
 			if (!in_array($item->id, self::$_buttons))
 			{
 				self::$_buttons[] = $item->id;
@@ -162,7 +162,7 @@ class ButtonsHelper
 		$layout = new JLayoutFile(($writable ? 'toolbar' : $style), JPATH_SITE.'/components/com_buttons/layouts');
 		return $layout->render($toolbar);
 	}
-	
+
 	/**
 	 * Configure the Linkbar.
 	 *
@@ -175,7 +175,7 @@ class ButtonsHelper
 	public static function addSubmenu($vName = 'buttons')
 	{
 		JLog::add(new JLogEntry(__METHOD__, JLOG::DEBUG, 'com_buttons'));
-		
+
 		JHtmlSidebar::addEntry(
 			JText::_('COM_BUTTONS_SUBMENU_BUTTONS'),
 			'index.php?option=com_buttons&view=buttons',
@@ -202,7 +202,7 @@ class ButtonsHelper
 	{
 		JLog::add(new JLogEntry(__METHOD__, JLOG::DEBUG, 'com_buttons'));
 		JLog::add(new JLogEntry('where: '.$where, JLOG::DEBUG, 'com_buttons'));
-		
+
 		$registry = new Registry;
 		if (isset($row->attribs))
 		{
@@ -213,7 +213,7 @@ class ButtonsHelper
 			return;
 		}
 		$arr = $registry->toArray();
-		
+
 		$toolbars = array();
 		if (in_array($where, array('top', 'both')))
 		{
@@ -237,7 +237,7 @@ class ButtonsHelper
 				$parent_id = $category->parent_id;
 			}
 		}
-		
+
 		if (in_array($where, array('bottom', 'both')))
 		{
 			if (isset($arr['toolbar_bottom']))
@@ -262,17 +262,17 @@ class ButtonsHelper
 		}
 		$toolbars = array_unique($toolbars);
 		JLog::add(new JLogEntry('toolbars: '.print_r($toolbars, true), JLOG::DEBUG, 'com_buttons'));
-		
+
 		//TODO: remove not published toolbars
-		
-		
+
+
 		return $toolbars;
 	}
-	
+
 	static function urlRemoveVar($pageURL, $key)
 	{
 		JLog::add(new JLogEntry(__METHOD__, JLOG::DEBUG, 'com_buttons'));
-		
+
 		$url = parse_url($pageURL);
 		if (!isset($url['query'])) return $pageURL;
 		parse_str($url['query'], $query_data);
@@ -290,11 +290,11 @@ class ButtonsHelper
 		$fragment = isset($url['fragment']) ? '#' . $url['fragment'] : '';
 		return "$scheme$user$pass$host$port$path$query$fragment";
 	}
-	
+
 	public static function copyright()
 	{
 		JLog::add(__METHOD__, JLog::DEBUG, 'com_buttons');
-	
+
 		if ($xml = JFactory::getXML(JPATH_COMPONENT_ADMINISTRATOR.'/buttons.xml'))
 		{
 			return
@@ -303,5 +303,5 @@ class ButtonsHelper
 			JText::_($xml->name).' '.$xml->version.' '.str_replace('(C)', '&copy;', $xml->copyright).
 			'</div>';
 		}
-	}	
+	}
 }

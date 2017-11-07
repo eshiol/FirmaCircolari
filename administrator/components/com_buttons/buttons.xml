@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="component" version="3.5" method="upgrade">
+  <name>com_buttons</name>
+  <creationDate>October 2016</creationDate>
+  <author>Helios Ciancio</author>
+  <authorEmail>info@eshiol.it</authorEmail>
+  <authorUrl>www.eshiol.it</authorUrl>
+  <copyright>(C) 2015, 2016 Helios Ciancio. All rights reserved.</copyright>
+  <license>http://www.gnu.org/licenses/gpl-3.0.html GNU/GPL v3</license>
+  <version>3.5.11.567</version>
+  <description>COM_BUTTONS_XML_DESCRIPTION</description>
+  <scriptfile>buttons.script.php</scriptfile>
+  <install>
+    <sql>
+      <file charset="utf8" driver="mysql">sql/install.mysql.sql</file>
+    </sql>
+  </install>
+  <uninstall>
+    <sql>
+      <file charset="utf8" driver="mysql">sql/uninstall.mysql.sql</file>
+    </sql>
+  </uninstall>
+  <update>
+    <schemas>
+      <schemapath type="mysql">sql/updates/mysql</schemapath>
+      <schemapath type="postgresql">sql/updates/postgresql</schemapath>
+      <schemapath type="sqlsrv">sql/updates/sqlsrv</schemapath>
+    </schemas>
+  </update>
+  <files folder="site">
+    <filename>buttons.php</filename>
+    <filename>controller.php</filename>
+    <folder>controllers</folder>
+    <folder>models</folder>
+    <folder>views</folder>
+    <folder>layouts</folder>
+  </files>
+  <languages folder="language">
+    <language tag="en-GB">en-GB/en-GB.com_buttons.ini</language>
+    <language tag="it-IT">it-IT/it-IT.com_buttons.ini</language>
+  </languages>
+  <administration>
+    <menu img="class:buttons">com_buttons_menu</menu>
+    <submenu>
+      <!--
+        Note that all & must be escaped to &amp; for the file to be valid
+        XML and be parsed by the installer
+      -->
+      <menu link="option=com_buttons&amp;view=buttons" img="class:radio-unchecked" alt="Buttons/Buttons">com_buttons_submenu_buttons</menu>
+      <menu link="option=com_categories&amp;extension=com_buttons" view="categories" img="class:menu" alt="Buttons/Categories">com_buttons_submenu_categories</menu>
+      <menu link="option=com_buttons&amp;view=extras" img="class:chart" alt="Buttons/Extras">com_buttons_submenu_extras</menu>
+    </submenu>
+    <files folder="admin">
+      <filename>access.xml</filename>
+      <filename>config.xml</filename>
+      <filename>controller.php</filename>
+      <filename>buttons.php</filename>
+      <folder>controllers</folder>
+      <folder>helpers</folder>
+      <folder>models</folder>
+      <folder>sql</folder>
+      <folder>tables</folder>
+      <folder>views</folder>
+    </files>
+    <languages folder="admin/language">
+      <language tag="en-GB">en-GB/en-GB.com_buttons.ini</language>
+      <language tag="en-GB">en-GB/en-GB.com_buttons.sys.ini</language>
+      <language tag="it-IT">it-IT/it-IT.com_buttons.ini</language>
+      <language tag="it-IT">it-IT/it-IT.com_buttons.sys.ini</language>
+    </languages>
+  </administration>
+  <media destination="com_buttons" folder="media">
+    <folder>images</folder>
+    <folder>js</folder>
+  </media>
+  <config>
+    <fields name="params">
+      <fieldset name="basic">
+        <field name="debug" type="radio" class="btn-group" default="0" label="COM_BUTTONS_CONFIG_DEBUG_LABEL" description="COM_BUTTONS_CONFIG_DEBUG_DESC">
+          <option value="1">JYES</option>
+          <option value="0">JNO</option>
+        </field>
+      </fieldset>
+    </fields>
+  </config>
+</extension>

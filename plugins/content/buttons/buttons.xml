@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="3.5" type="plugin" group="content" method="upgrade">
+  <name>plg_content_buttons</name>
+  <creationDate>October 2016</creationDate>
+  <author>Helios Ciancio</author>
+  <authorEmail>info@eshiol.it</authorEmail>
+  <authorUrl>www.eshiol.it</authorUrl>
+  <copyright>(C) 2015, 2016 Helios Ciancio. All rights reserved.</copyright>
+  <license>http://www.gnu.org/licenses/gpl-3.0.html GNU/GPL v3</license>
+  <version>3.5.11.535</version>
+  <description>PLG_CONTENT_BUTTONS_XML_DESCRIPTION</description>
+  <files>
+    <filename plugin="buttons">buttons.php</filename>
+    <folder>forms</folder>
+    <folder>language</folder>
+    <folder>tmpl</folder>
+  </files>
+  <config>
+    <fields name="params">
+      <fieldset name="basic">
+        <field name="show_categoryblog" type="radio" default="0" class="btn-group btn-group-yesno" description="PLG_CONTENT_BUTTONS_FIELD_SHOWCATEGORYBLOG_DESC" label="PLG_CONTENT_BUTTONS_FIELD_SHOWCATEGORYBLOG_LABEL">
+          <option value="1">JYES</option>
+          <option value="0">JNO</option>
+        </field>
+        <field name="show_featured" type="radio" default="0" class="btn-group btn-group-yesno" description="PLG_CONTENT_BUTTONS_FIELD_SHOWFEATURED_DESC" label="PLG_CONTENT_BUTTONS_FIELD_SHOWFEATURED_LABEL">
+          <option value="1">JYES</option>
+          <option value="0">JNO</option>
+        </field>
+        <field name="debug" type="radio" default="0" class="btn-group btn-group-yesno" description="PLG_CONTENT_BUTTONS_FIELD_DEBUG_SYSTEM_DESC" label="PLG_CONTENT_BUTTONS_FIELD_DEBUG_SYSTEM_LABEL">
+          <option value="1">JYES</option>
+          <option value="0">JNO</option>
+        </field>
+        <field name="log" type="text" label="PLG_CONTENT_BUTTONS_FIELD_DEBUG_FILENAME_LABEL" description="PLG_CONTENT_BUTTONS_FIELD_DEBUG_FILENAME_DESC" default="eshiol.php" showon="debug:1"/>
+      </fieldset>
+    </fields>
+  </config>
+</extension>

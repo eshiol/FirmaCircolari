@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+/**
+ * @version		3.5.11 plugins/content/buttons/forms/toolbar.xml
+ * 
+ * @package		Buttons
+ * @subpackage	plg_content_buttons
+ * @since		3.4
+ *
+ * @author		Helios Ciancio <info@eshiol.it>
+ * @link		http://www.eshiol.it
+ * @copyright	Copyright (C) 2015, 2016 Helios Ciancio. All Rights Reserved
+ * @license		http://www.gnu.org/licenses/gpl-3.0.html GNU/GPL v3
+ * Buttons is free software. This version may have been modified pursuant
+ * to the GNU General Public License, and as distributed it includes or
+ * is derivative of works licensed under the GNU General Public License or
+ * other free or open source software licenses.
+ */
+-->
+<form>
+    <fields name="params" >
+        <fieldset name="eshiolit" label="PLG_CONTENT_BUTTONS_OPTIONS">
+			<field
+				name="toolbar_type"
+				type="list"
+				default="0"
+				label="PLG_CONTENT_BUTTONS_OPTIONS_TYPE_LABEL"
+				description="PLG_CONTENT_BUTTONS_OPTIONS_TYPE_DESC"
+				>
+				<option value="0">PLG_CONTENT_BUTTONS_OPTIONS_TYPE_CHECKBOX</option>
+				<option value="1">PLG_CONTENT_BUTTONS_OPTIONS_TYPE_RADIO</option>
+			</field>
+			<field
+				name="toolbar_final"
+				type="radio"
+				class="btn-group btn-group-yesno"
+				default="0"
+				label="PLG_CONTENT_BUTTONS_OPTIONS_FINAL_LABEL"
+				description="PLG_CONTENT_BUTTONS_OPTIONS_FINAL_DESC"
+				>
+				<option value="1">JYES</option>
+				<option value="0">JNO</option>
+			</field>
+			<field
+				name="toolbar_default"
+				type="text"
+				default=""
+				label="PLG_CONTENT_BUTTONS_OPTIONS_DEFAULT_LABEL"
+				description="PLG_CONTENT_BUTTONS_OPTIONS_DEFAULT_DESC"
+				/>
+			<field name="toolbar_lockondelete" type="radio" class="btn-group btn-group-yesno" default="" 
+				label="PLG_CONTENT_BUTTONS_FIELD_LOCKONDELETE_LABEL" description="PLG_CONTENT_BUTTONS_FIELD_LOCKONDELETE_DESC">
+				<option value="">JGLOBAL_USE_GLOBAL</option>
+				<option value="1">JYES</option>
+				<option value="0">JNO</option>
+			</field>
+	        <field name="show_categoryblog" 
+	        	type="radio" 
+	        	default="" 
+	        	class="btn-group btn-group-yesno" 
+	        	description="PLG_CONTENT_BUTTONS_FIELD_SHOWCATEGORYBLOG_DESC" 
+	        	label="PLG_CONTENT_BUTTONS_FIELD_SHOWCATEGORYBLOG_LABEL"
+	        	>
+	          <option value="">JGLOBAL_USE_GLOBAL</option>
+              <option value="1">JSHOW</option>
+              <option value="0">JHIDE</option>
+	        </field>
+	        <field name="show_featured" 
+	        	type="radio" 
+	        	default="" 
+	        	class="btn-group btn-group-yesno" 
+	        	description="PLG_CONTENT_BUTTONS_FIELD_SHOWFEATURED_DESC" 
+	        	label="PLG_CONTENT_BUTTONS_FIELD_SHOWFEATURED_LABEL"
+	        	>
+	          <option value="">JGLOBAL_USE_GLOBAL</option>
+              <option value="1">JSHOW</option>
+              <option value="0">JHIDE</option>
+	        </field>
+	        <field name="report_access" type="accesslevel" default="3" label="PLG_CONTENT_BUTTONS_FIELD_REPORTACCESS_LABEL" description="PLG_CONTENT_BUTTONS_FIELD_REPORTACCESS_DESC"/>
+	        <field name="report_style" type="radio" default="" class="btn-group" label="PLG_CONTENT_BUTTONS_FIELD_REPORTSTYLE_LABEL" description="PLG_CONTENT_BUTTONS_FIELD_REPORTSTYLE_DESC">
+	          <option value="">JGLOBAL_USE_GLOBAL</option>
+	          <option value="0">PLG_CONTENT_BUTTONS_REPORTSTYLE_BUTTONS</option>
+	          <option value="1">PLG_CONTENT_BUTTONS_REPORTSTYLE_TEXT</option>
+	        </field>
+            <field name="report_extended" type="radio" default="" class="btn-group btn-group-yesno" description="PLG_CONTENT_BUTTONS_FIELD_REPORTEXTENDED_DESC" label="PLG_CONTENT_BUTTONS_FIELD_REPORTEXTENDED_LABEL">
+ 	          <option value="">JGLOBAL_USE_GLOBAL</option>
+              <option value="1">JYES</option>
+              <option value="0">JNO</option>
+            </field>
+			<field name="audit" type="radio" class="btn-group btn-group-yesno" default="" label="PLG_CONTENT_BUTTONS_FIELD_AUDIT_LABEL" description="PLG_CONTENT_BUTTONS_FIELD_AUDIT_DESC">
+				<option value="">JGLOBAL_USE_GLOBAL</option>
+				<option value="1">JYES</option>
+				<option value="0">JNO</option>
+			</field>
+        </fieldset>
+    </fields>
+</form>

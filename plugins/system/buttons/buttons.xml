@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="3.5" type="plugin" group="system" method="upgrade">
+  <name>plg_system_buttons</name>
+  <creationDate>October 2016</creationDate>
+  <author>Helios Ciancio</author>
+  <authorEmail>info@eshiol.it</authorEmail>
+  <authorUrl>www.eshiol.it</authorUrl>
+  <copyright>(C) 2015, 2016 Helios Ciancio. All rights reserved.</copyright>
+  <license>http://www.gnu.org/licenses/gpl-3.0.html GNU/GPL v3</license>
+  <version>3.5.11.118</version>
+  <description>PLG_SYSTEM_BUTTONS_XML_DESCRIPTION</description>
+  <files>
+    <filename plugin="buttons">buttons.php</filename>
+    <folder>language</folder>
+  </files>
+  <config>
+    <fields name="params">
+      <fieldset name="basic">
+        <field name="template" type="list" default="TEXT" description="PLG_SYSTEM_BUTTONS_FIELD_TEMPLATE_DESC" label="PLG_SYSTEM_BUTTONS_FIELD_TEMPLATE_LABEL">
+          <option value="TEXT">PLG_SYSTEM_BUTTONS_TEMPLATE_TEXT</option>
+          <option value="DEFAULT">PLG_SYSTEM_BUTTONS_TEMPLATE_DEFAULT</option>
+          <option value="LEGACY">PLG_SYSTEM_BUTTONS_TEMPLATE_LEGACY</option>
+        </field>
+        <field name="debug" type="radio" default="0" class="btn-group btn-group-yesno" description="PLG_SYSTEM_BUTTONS_FIELD_TEMPLATE_DESC" label="PLG_SYSTEM_BUTTONS_FIELD_DEBUG_SYSTEM_LABEL">
+          <option value="1">JYES</option>
+          <option value="0">JNO</option>
+        </field>
+        <field name="log" type="text" label="PLG_SYSTEM_BUTTONS_FIELD_DEBUG_FILENAME_LABEL" description="PLG_SYSTEM_BUTTONS_FIELD_TEMPLATE_DESC" default="eshiol.php" showon="debug:1"/>
+      </fieldset>
+    </fields>
+  </config>
+</extension>

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 
+/**
+ * @version		3.5.11 administrator/components/com_buttons/config.xml
+ * 
+ * @package		Buttons
+ * @subpackage	com_buttons
+ * @since		3.4
+ *
+ * @author		Helios Ciancio <info@eshiol.it>
+ * @link		http://www.eshiol.it
+ * @copyright	Copyright (C) 2015, 2016 Helios Ciancio. All Rights Reserved
+ * @license		http://www.gnu.org/licenses/gpl-3.0.html GNU/GPL v3
+ * Buttons is free software. This version may have been modified pursuant
+ * to the GNU General Public License, and as distributed it includes or
+ * is derivative of works licensed under the GNU General Public License or
+ * other free or open source software licenses.
+ */
+-->
+<config>
+	<fieldset name="component"
+		label="COM_BUTTONS_COMPONENT_LABEL"
+		description="COM_BUTTONS_COMPONENT_DESC"
+	>
+		<field
+			name="save_history"
+			type="radio"
+			class="btn-group btn-group-yesno"
+			default="0"
+			label="JGLOBAL_SAVE_HISTORY_OPTIONS_LABEL"
+			description="JGLOBAL_SAVE_HISTORY_OPTIONS_DESC"
+			>
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
+		</field>
+
+		<field
+			name="history_limit"
+			type="text"
+			filter="integer"
+			label="JGLOBAL_HISTORY_LIMIT_OPTIONS_LABEL"
+			description="JGLOBAL_HISTORY_LIMIT_OPTIONS_DESC"
+			default="5"
+		/>
+
+        <field 
+        	name="debug" 
+        	type="radio" 
+        	default="0" 
+        	class="btn-group btn-group-yesno" 
+        	description="COM_BUTTONS_FIELD_DEBUG_SYSTEM_DESC" 
+        	label="COM_BUTTONS_FIELD_DEBUG_SYSTEM_LABEL"
+        	>
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
+		</field>
+		<field
+			name="log"
+			type="text"
+			label="COM_BUTTONS_FIELD_DEBUG_FILENAME_LABEL"
+			description="COM_BUTTONS_FIELD_DEBUG_FILENAME_DESC"
+			default="eshiol.php"
+			showon="debug:1"
+		/>
+	</fieldset>
+
+	<fieldset name="Toolbar"
+		label="COM_BUTTONS_TOOLBAR_LABEL"
+		description="COM_BUTTONS_TOOLBAR_DESC"
+		>
+		<field name="toolbar_lockondelete" type="radio" class="btn-group btn-group-yesno" default="1" 
+			label="COM_BUTTONS_FIELD_LOCKONDELETE_LABEL" description="COM_BUTTONS_FIELD_LOCKONDELETE_DESC">
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
+		</field>
+		<field name="audit" type="radio" class="btn-group btn-group-yesno" default="0" label="COM_BUTTONS_FIELD_AUDIT_LABEL" description="COM_BUTTONS_FIELD_AUDIT_DESC">
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
+		</field>
+	</fieldset>
+
+	<fieldset name="Report"
+		label="COM_BUTTONS_REPORT_LABEL"
+		description="COM_BUTTONS_REPORT_DESC"
+		>
+        <field name="report_style" type="radio" default="0" class="btn-group" label="COM_BUTTONS_FIELD_REPORTSTYLE_LABEL" description="COM_BUTTONS_FIELD_REPORTSTYLE_DESC">
+          <option value="0">COM_BUTTONS_REPORTSTYLE_BUTTONS</option>
+          <option value="1">COM_BUTTONS_REPORTSTYLE_TEXT</option>
+        </field>
+        <field name="report_extended" type="radio" default="0" class="btn-group btn-group-yesno" description="COM_BUTTONS_FIELD_REPORTEXTENDED_DESC" label="COM_BUTTONS_FIELD_REPORTEXTENDED_LABEL">
+          <option value="1">JYES</option>
+          <option value="0">JNO</option>
+        </field>
+        <field name="sort" type="list" default="category_title, modified desc" description="COM_BUTTONS_FIELD_SORT_DESC" label="COM_BUTTONS_FIELD_SORT_LABEL">
+          <option value="category_title, editor_name">COM_BUTTONS_FIELD_SORT_USER</option>
+          <option value="category_title, modified desc">COM_BUTTONS_FIELD_SORT_MODIFIED</option>
+          <option value="category_title, value desc, editor_name">COM_BUTTONS_FIELD_SORT_VALUE_USER</option>
+          <option value="category_title, value desc, modified desc">COM_BUTTONS_FIELD_SORT_VALUE_MODIFIED</option>
+        </field>
+	</fieldset>
+
+	<fieldset name="permissions"
+		description="JCONFIG_PERMISSIONS_DESC"
+		label="JCONFIG_PERMISSIONS_LABEL"
+	>
+
+		<field name="rules" type="rules"
+			component="com_buttons"
+			filter="rules"
+			validate="rules"
+			label="JCONFIG_PERMISSIONS_LABEL"
+			section="component" />
+	</fieldset>
+</config>

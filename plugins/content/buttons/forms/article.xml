@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+/**
+ * @version		3.5.11 plugins/content/buttons/forms/article.xml
+ * 
+ * @package		Buttons
+ * @subpackage	plg_content_buttons
+ * @since		3.4
+ *
+ * @author		Helios Ciancio <info@eshiol.it>
+ * @link		http://www.eshiol.it
+ * @copyright	Copyright (C) 2015, 2016 Helios Ciancio. All Rights Reserved
+ * @license		http://www.gnu.org/licenses/gpl-3.0.html GNU/GPL v3
+ * Buttons is free software. This version may have been modified pursuant
+ * to the GNU General Public License, and as distributed it includes or
+ * is derivative of works licensed under the GNU General Public License or
+ * other free or open source software licenses.
+ */
+-->
+<form>
+    <fields name="attribs" >
+        <fieldset name="eshiolit" label="PLG_CONTENT_BUTTONS_OPTIONS"
+			addfieldpath="/administrator/components/com_buttons/models/forms/fields" 
+        	>
+			<field 
+				name="toolbar_top"
+				type="buttons"
+			    label="PLG_CONTENT_BUTTONS_OPTIONS_FIELD_TOOLBAR_TOP_LABEL"
+			    description="PLG_CONTENT_BUTTONS_OPTIONS_FIELD_TOOLBAR_TOP_DESC"
+			    labelclass="control-label"
+			    multiple="true"
+			    />
+			<field 
+				name="toolbar_bottom"
+				type="buttons"
+			    label="PLG_CONTENT_BUTTONS_OPTIONS_FIELD_TOOLBAR_BOTTOM_LABEL"
+			    description="PLG_CONTENT_BUTTONS_OPTIONS_FIELD_TOOLBAR_BOTTOM_DESC"
+			    labelclass="control-label"
+			    multiple="true"
+			    />
+        </fieldset>
+    </fields>
+</form>

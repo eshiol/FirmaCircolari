@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<extension type="package" version="3.5" method="upgrade">
+  <name>pkg_firmacircolari</name>
+  <author>Helios Ciancio</author>
+  <creationDate>March 2018</creationDate>
+  <packagename>firmacircolari</packagename>
+  <version>3.6.13.59</version>
+  <url>http://www.eshiol.it</url>
+  <packager>Helios Ciancio</packager>
+  <packagerurl>http://www.eshiol.it/</packagerurl>
+  <description>pkg_firmacircolari_xml_description</description>
+  <updateservers>
+    <server type="extension" priority="2" name="Buttons">https://www.eshiol.it/files/buttons/buttons.xml</server>
+  </updateservers>
+  <files>
+    <folder type="component" id="buttons">com_buttons-3.6.13.627.zip</folder>
+    <folder type="plugin" id="buttons" group="content">plg_content_buttons-3.6.13.544.zip</folder>
+    <folder type="plugin" id="buttons" group="system">plg_system_buttons-3.6.13.128.zip</folder>
+    <folder type="file" id="firmacircolari">firmacircolari-3.6.13.92.zip</folder>
+  </files>
+  <languages folder="language">
+    <language tag="en-GB">en-GB/en-GB.pkg_firmacircolari.sys.ini</language>
+    <language tag="it-IT">it-IT/it-IT.pkg_firmacircolari.sys.ini</language>
+  </languages>
+</extension>

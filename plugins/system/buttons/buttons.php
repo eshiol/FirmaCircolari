@@ -1,14 +1,14 @@
 <?php
 /**
- * @version		3.5.11 plugins/system/buttons/buttons.php
+ * @version		3.6.12 plugins/system/buttons/buttons.php
  *
  * @package		Buttons
- * @subpackage	plg_content_buttons
+ * @subpackage	plg_system_buttons
  * @since		3.4
  *
  * @author		Helios Ciancio <info@eshiol.it>
  * @link		http://www.eshiol.it
- * @copyright	Copyright (C) 2015, 2017 Helios Ciancio. All Rights Reserved
+ * @copyright	Copyright (C) 2015, 2018 Helios Ciancio. All Rights Reserved
  * @license		http://www.gnu.org/licenses/gpl-3.0.html GNU/GPL v3
  * Buttons is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
@@ -55,19 +55,32 @@ class plgSystemButtons extends JPlugin
 	public function __construct(&$subject, $config)
 	{
 		parent::__construct($subject, $config);
+
 		if ($this->params->get('debug') || defined('JDEBUG') && JDEBUG)
 		{
-			JLog::addLogger(array('text_file' => $this->params->get('log', 'eshiol.php'), 'extension' => 'plg_system_buttons'), JLog::ALL, array('plg_system_buttons'));
+			JLog::addLogger(array('text_file' => $this->params->get('log', 'eshiol.log.php'), 'extension' => 'plg_system_buttons_file'), JLog::ALL, array('plg_system_buttons'));
 		}
-		JLog::addLogger(array('logger' => 'messagequeue', 'extension' => 'plg_system_buttons'), JLOG::ALL & ~JLOG::DEBUG, array('plg_system_buttons'));
-		JLog::add(__METHOD__, JLOG::DEBUG, 'plg_system_buttons');
+		if (PHP_SAPI == 'cli')
+		{
+			JLog::addLogger(array('logger' => 'echo', 'extension' => 'plg_system_buttons'), JLOG::ALL & ~JLOG::DEBUG, array('plg_system_buttons'));
+		}
+		else
+		{
+			JLog::addLogger(array('logger' => (null !== $this->params->get('logger')) ?$this->params->get('logger') : 'messagequeue', 'extension' => 'plg_system_buttons'), JLOG::ALL & ~JLOG::DEBUG, array('plg_system_buttons'));
+			if ($this->params->get('phpconsole') && class_exists('JLogLoggerPhpconsole'))
+			{
+				JLog::addLogger(['logger' => 'phpconsole', 'extension' => 'plg_system_buttons_phpconsole'], JLOG::DEBUG, array('plg_system_buttons'));
+			}
+		}
+		JLog::add(new JLogEntry(__METHOD__, JLog::DEBUG, 'plg_system_buttons'));
 
+		//TODO: check com_buttons is installed and enabled
 		$app = JFactory::getApplication();
 		if ($app->getName() == 'administrator')
 		{
 			if (!file_exists(JPATH_ADMINISTRATOR.'/components/com_buttons/helpers/buttons.php'))
 			{
-				JLog::add(JText::_('PLG_SYSTEM_BUTTONS_MSG_REQUIREMENTS'),JLOG::WARNING,'plg_system_buttons');
+				JLog::add(new JLogEntry(JText::_('PLG_SYSTEM_BUTTONS_MSG_REQUIREMENTS'), JLOG::WARNING, 'plg_system_buttons'));
 			}
 		}
 	}
@@ -205,7 +218,7 @@ class plgSystemButtons extends JPlugin
 						if ($template == 'LEGACY')
 							$text = '<span class="icon-chart"></span>&nbsp;<span class="hidden">'.JText::_('PLG_SYSTEM_BUTTONS_REPORT').'</span>';
 						elseif ($template == 'DEFAULT')
-							$text = '<span class="hasTooltip icon-chart tip"></span>'.JText::_('PLG_SYSTEM_BUTTONS_REPORT');
+							$text = '<span class="hasTooltip icon-chart tip"></span> '.JText::_('PLG_SYSTEM_BUTTONS_REPORT');
 						else
 							$text = JText::_('PLG_SYSTEM_BUTTONS_REPORT');
 						// $text = JText::_('PLG_SYSTEM_BUTTONS_REPORT_TEXT_'.$template);
@@ -299,7 +312,7 @@ class plgSystemButtons extends JPlugin
 							if ($template == 'LEGACY')
 								$text = '<span class="icon-download"></span>&nbsp;<span class="hidden">'.JText::_('PLG_SYSTEM_BUTTONS_CSV').'</span>';
 							elseif ($template == 'DEFAULT')
-								$text = '<span class="hasTooltip icon-download tip"></span>'.JText::_('PLG_SYSTEM_BUTTONS_CSV');
+								$text = '<span class="hasTooltip icon-download tip"></span> '.JText::_('PLG_SYSTEM_BUTTONS_CSV');
 							else
 								$text = JText::_('PLG_SYSTEM_BUTTONS_CSV');
 
@@ -313,7 +326,7 @@ class plgSystemButtons extends JPlugin
 							if ($template == 'LEGACY')
 								$text = '<span class="icon-exit"></span>&nbsp;<span class="hidden">'.JText::_('PLG_SYSTEM_BUTTONS_CLOSE').'</span>';
 							elseif ($template == 'DEFAULT')
-								$text = '<span class="hasTooltip icon-cancel tip"></span>'.JText::_('PLG_SYSTEM_BUTTONS_CLOSE');
+								$text = '<span class="hasTooltip icon-cancel tip"></span> '.JText::_('PLG_SYSTEM_BUTTONS_CLOSE');
 							else
 								$text = JText::_('PLG_SYSTEM_BUTTONS_CLOSE');
 
@@ -336,7 +349,7 @@ class plgSystemButtons extends JPlugin
 
 	static function urlRemoveVar($pageURL, $key)
 	{
-		JLog::add(__METHOD__, JLOG::DEBUG, 'plg_system_buttons');
+		JLog::add(new JLogEntry(__METHOD__, JLOG::DEBUG, 'plg_system_buttons'));
 
 		$url = parse_url($pageURL);
 		if (!isset($url['query'])) return $pageURL;

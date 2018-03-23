@@ -2,20 +2,20 @@
 <extension type="package" version="3.5" method="upgrade">
   <name>pkg_buttons</name>
   <author>Helios Ciancio</author>
-  <creationDate>November 2017</creationDate>
+  <creationDate>March 2018</creationDate>
   <packagename>buttons</packagename>
-  <version>3.5.12.63</version>
+  <version>3.6.13.81</version>
   <url>http://www.eshiol.it</url>
   <packager>Helios Ciancio</packager>
   <packagerurl>http://www.eshiol.it/</packagerurl>
   <description>PKG_BUTTONS_XML_DESCRIPTION</description>
   <updateservers>
-    <server type="collection" priority="1" name="Buttons">https://www.eshiol.it/files/buttons/buttons.xml</server>
+    <server type="extension" priority="2" name="Buttons">https://www.eshiol.it/files/buttons/buttons.xml</server>
   </updateservers>
   <files>
-    <folder type="plugin" id="buttons" group="content">plg_content_buttons-3.5.12.536.zip</folder>
-    <folder type="plugin" id="buttons" group="system">plg_system_buttons-3.5.12.119.zip</folder>
-    <folder type="component" id="buttons">com_buttons-3.5.12.568.zip</folder>
+    <folder type="component" id="buttons">com_buttons-3.6.13.627.zip</folder>
+    <folder type="plugin" id="buttons" group="content">plg_content_buttons-3.6.13.544.zip</folder>
+    <folder type="plugin" id="buttons" group="system">plg_system_buttons-3.6.13.128.zip</folder>
   </files>
   <languages folder="language">
     <language tag="en-GB">en-GB/en-GB.pkg_buttons.sys.ini</language>

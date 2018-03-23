@@ -2,10 +2,12 @@
 /**
  * @package		Buttons
  * @subpackage	com_buttons
+ * @version		3.6.12
+ * @since		3.4
  *
  * @author		Helios Ciancio <info@eshiol.it>
  * @link		http://www.eshiol.it
- * @copyright	Copyright (C) 2015, 2016 Helios Ciancio. All Rights Reserved
+ * @copyright	Copyright (C) 2015, 2018 Helios Ciancio. All Rights Reserved
  * @license		http://www.gnu.org/licenses/gpl-3.0.html GNU/GPL v3
  * Buttons is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
@@ -16,12 +18,8 @@
 // no direct access
 defined('_JEXEC') or die('Restricted access.');
 
-use Joomla\Registry\Registry;
-
 /**
  * Installation class to perform additional changes during install/uninstall/update
- * @version		3.5.12
- * @since		3.4
  */
 class Com_ButtonsInstallerScript
 {
@@ -38,32 +36,28 @@ class Com_ButtonsInstallerScript
 	{
 		JLog::add(new JLogEntry(__METHOD__, JLOG::DEBUG, 'com_buttons'));
 
-		// Copy images
-		JFolder::copy(__DIR__.'/images', JPATH_ROOT.'/images', '', true);
-
-		$category = $this->addCategory('Uncategorised', 1, 2);
-		$this->addButton('Demo',	1, $category->id, 1, 1, 'demo', 64, 64);
-
 		// Enable plugins
 		$db  = JFactory::getDbo();
 
-		$db->setQuery(
-			$db->getQuery(true)
-				->update('#__extensions')
-				->set($db->qn('enabled') . ' = 1')
-				->where($db->qn('type') . ' = ' . $db->quote('plugin'))
-				->where($db->qn('folder') . ' = ' . $db->quote('content'))
-				->where($db->qn('element') . ' = ' . $db->quote('buttons'))
-		)->execute();
+		$query = $db->getQuery(true)
+			->update('#__extensions')
+			->set($db->qn('enabled') . ' = 1')
+			->where($db->qn('type') . ' = ' . $db->quote('plugin'))
+			->where($db->qn('folder') . ' = ' . $db->quote('content'))
+			->where($db->qn('element') . ' = ' . $db->quote('buttons'))
+			;
+		$db->setQuery($query);
+		$db->execute();
 
-		$db->setQuery(
-			$db->getQuery(true)
-				->update('#__extensions')
-				->set($db->qn('enabled') . ' = 1')
-				->where($db->qn('type') . ' = ' . $db->quote('plugin'))
-				->where($db->qn('folder') . ' = ' . $db->quote('system'))
-				->where($db->qn('element') . ' = ' . $db->quote('buttons'))
-		)->execute();
+		$query = $db->getQuery(true)
+			->update('#__extensions')
+			->set($db->qn('enabled') . ' = 1')
+			->where($db->qn('type') . ' = ' . $db->quote('plugin'))
+			->where($db->qn('folder') . ' = ' . $db->quote('system'))
+			->where($db->qn('element') . ' = ' . $db->quote('buttons'))
+			;
+		$db->setQuery($query);
+		$db->execute();
 	}
 
 	/**
@@ -83,12 +77,14 @@ class Com_ButtonsInstallerScript
 					->from('#__categories')
 					->where('extension='.$db->q('com_buttons'))
 				)->LoadResult()
-			&& !$db->setQuery(
+			&&
+			!$db->setQuery(
 				$db->getQuery(true)
 					->select('count(*)')
 					->from('#__buttons')
 				)->LoadResult()
-			&& !$db->setQuery(
+			&&
+			!$db->setQuery(
 				$db->getQuery(true)
 					->select('count(*)')
 					->from('#__buttons_extras')
@@ -214,6 +210,24 @@ class Com_ButtonsInstallerScript
 					->where('extension='.$db->q('!com_buttons!'))
 			)->execute();
 		}
+		/*
+		elseif ($type == 'update')
+		{
+			foreach(array(
+				'en-GB/en-GB.plg_content_buttons.ini',
+				'en-GB/en-GB.plg_content_buttons.sys.ini',
+				'it-IT/it-IT.plg_content_buttons.ini',
+				'it-IT/it-IT.plg_content_buttons.sys.ini',
+				'en-GB/en-GB.plg_system_buttons.ini',
+				'en-GB/en-GB.plg_system_buttons.sys.ini',
+				'it-IT/it-IT.plg_system_buttons.ini',
+				'it-IT/it-IT.plg_system_buttons.sys.ini',
+			) as $file)
+			{
+				JFile::delete(JPATH_ROOT . '/administrator/language/'.$file);
+			}
+		}
+		*/
 	}
 
 	/**
@@ -237,6 +251,19 @@ class Com_ButtonsInstallerScript
 		{
 			// Add Missing Table Colums if needed
 			$this->addColumnsIfNeeded();
+		}
+
+		if (($type == 'install') or ($type == 'update'))
+		{
+			$category = $this->addCategory('Uncategorised', 1, 2);
+		}
+
+		if ($type == 'install')
+		{
+			// Copy images
+			JFolder::copy(__DIR__.'/admin/images', JPATH_ROOT.'/images/buttons', '', true);
+
+			$this->addButton('Demo',	1, $category->id, 1, 1, 'demo', 64, 64);
 		}
 	}
 
@@ -279,11 +306,12 @@ class Com_ButtonsInstallerScript
 	{
 		JLog::add(new JLogEntry(__METHOD__, JLOG::DEBUG, 'com_buttons'));
 
+		// Register the class aliases for Framework classes that have replaced their Platform equivilents
+		require_once JPATH_ADMINISTRATOR . '/components/com_buttons/tables/button.php';
 		// Initialize a new Button
 		/** @type  ButtonsTableButton  $button  */
-		require_once JPATH_ADMINISTRATOR.'/components/com_buttons/tables/button.php';
-
 		$button = JTable::getInstance('Button', 'ButtonsTable');
+
 		if (!$button->load(array('alias' => strtolower($title), 'catid' => $catid)))
 		{
 			$button->title = $title;

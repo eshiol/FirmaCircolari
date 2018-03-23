@@ -20,8 +20,8 @@
 		<field
 			name="search"
 			type="text"
-			label="COM_BUTTONS_BUTTONS_FILTER_SEARCH_DESC"
-			description="COM_BUTTONS_BUTTONS_FILTER_SEARCH_DESC"
+			label="COM_BUTTONS_EXTRAS_FILTER_SEARCH_DESC"
+			description="COM_BUTTONS_EXTRAS_FILTER_SEARCH_DESC"
 			hint="JSEARCH_FILTER"
 		/>
 		<field
@@ -64,20 +64,16 @@
 			default="a.id DESC"
 			>
 			<option value="">JGLOBAL_SORT_BY</option>
-			<option value="a.ordering ASC">JGRID_HEADING_ORDERING_ASC</option>
-			<option value="a.ordering DESC">JGRID_HEADING_ORDERING_DESC</option>
 			<option value="a.state ASC">JSTATUS_ASC</option>
 			<option value="a.state DESC">JSTATUS_DESC</option>
-			<option value="a.title ASC">JGLOBAL_TITLE_ASC</option>
-			<option value="a.title DESC">JGLOBAL_TITLE_DESC</option>
+			<option value="b.title ASC">JGLOBAL_TITLE_ASC</option>
+			<option value="b.title DESC">JGLOBAL_TITLE_DESC</option>
+			<option value="category_title ASC">JCATEGORY_ASC</option>
+			<option value="category_title DESC">JCATEGORY_DESC</option>
+			<option value="editor_name ASC">JAUTHOR_ASC</option>
+			<option value="editor_name DESC">JAUTHOR_DESC</option>
 			<option value="a.value ASC">COM_BUTTONS_HEADING_VALUE_ASC</option>
 			<option value="a.value DESC">COM_BUTTONS_HEADING_VALUE_DESC</option>
-			<option value="a.access ASC">JGRID_HEADING_ACCESS_ASC</option>
-			<option value="a.access DESC">JGRID_HEADING_ACCESS_DESC</option>
-			<option value="a.hits ASC">JGLOBAL_HITS_ASC</option>
-			<option value="a.hits DESC">JGLOBAL_HITS_DESC</option>
-			<option value="a.language ASC">JGRID_HEADING_LANGUAGE_ASC</option>
-			<option value="a.language DESC">JGRID_HEADING_LANGUAGE_DESC</option>
 			<option value="a.id ASC">JGRID_HEADING_ID_ASC</option>
 			<option value="a.id DESC">JGRID_HEADING_ID_DESC</option>
 		</field>

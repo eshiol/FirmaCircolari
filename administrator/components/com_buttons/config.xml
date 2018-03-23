@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
 /**
- * @version		3.5.11 administrator/components/com_buttons/config.xml
+ * @version		3.6.12 administrator/components/com_buttons/config.xml
  *
  * @package		Buttons
  * @subpackage	com_buttons
@@ -9,7 +9,7 @@
  *
  * @author		Helios Ciancio <info@eshiol.it>
  * @link		http://www.eshiol.it
- * @copyright	Copyright (C) 2015, 2017 Helios Ciancio. All Rights Reserved
+ * @copyright	Copyright (C) 2015, 2018 Helios Ciancio. All Rights Reserved
  * @license		http://www.gnu.org/licenses/gpl-3.0.html GNU/GPL v3
  * Buttons is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
@@ -62,6 +62,10 @@
 			default="eshiol.php"
 			showon="debug:1"
 		/>
+        <field name="phpconsole" type="radio" class="btn-group btn-group-yesno" default="0" description="COM_BUTTONS_FIELD_DEBUG_PHPCONSOLE_DESC" label="COM_BUTTONS_FIELD_DEBUG_PHPCONSOLE_LABEL">
+          <option value="1">JYES</option>
+          <option value="0">JNO</option>
+        </field>
 	</fieldset>
 
 	<fieldset name="Toolbar"

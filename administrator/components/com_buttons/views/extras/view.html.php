@@ -1,14 +1,13 @@
 <?php
 /**
- * @version		3.5.11 administrator/components/com_buttons/views/extras/view.html.php
- *
  * @package		Buttons
  * @subpackage	com_buttons
+ * @version		3.6.13
  * @since		3.4
  *
  * @author		Helios Ciancio <info@eshiol.it>
  * @link		http://www.eshiol.it
- * @copyright	Copyright (C) 2015, 2017 Helios Ciancio. All Rights Reserved
+ * @copyright	Copyright (C) 2015, 2018 Helios Ciancio. All Rights Reserved
  * @license		http://www.gnu.org/licenses/gpl-3.0.html GNU/GPL v3
  * Buttons is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
@@ -24,11 +23,47 @@ defined('_JEXEC') or die('Restricted access.');
  */
 class ButtonsViewExtras extends JViewLegacy
 {
+	/**
+	 * An array of items
+	 *
+	 * @var  array
+	 */
 	protected $items;
-
+	
+	/**
+	 * The pagination object
+	 *
+	 * @var  JPagination
+	 */
 	protected $pagination;
-
+	
+	/**
+	 * The model state
+	 *
+	 * @var  object
+	 */
 	protected $state;
+	
+	/**
+	 * Form object for search filters
+	 *
+	 * @var  JForm
+	 */
+	public $filterForm;
+	
+	/**
+	 * The active search filters
+	 *
+	 * @var  array
+	 */
+	public $activeFilters;
+	
+	/**
+	 * The sidebar markup
+	 *
+	 * @var  string
+	 */
+	protected $sidebar;
 
 	/**
 	 * Display the view
@@ -39,9 +74,11 @@ class ButtonsViewExtras extends JViewLegacy
 	{
 		JLog::add(new JLogEntry(__METHOD__, JLOG::DEBUG, 'com_buttons'));
 
-		$this->state      = $this->get('State');
-		$this->items      = $this->get('Items');
-		$this->pagination = $this->get('Pagination');
+		$this->items         = $this->get('Items');
+		$this->pagination    = $this->get('Pagination');
+		$this->state         = $this->get('State');
+		$this->filterForm    = $this->get('FilterForm');
+		$this->activeFilters = $this->get('ActiveFilters');
 
 		ButtonsHelper::addSubmenu('extras');
 
@@ -98,31 +135,6 @@ class ButtonsViewExtras extends JViewLegacy
 		{
 			JToolbarHelper::preferences('com_buttons');
 		}
-
-		JHtmlSidebar::addFilter(
-			JText::_('JOPTION_SELECT_CATEGORY'),
-			'filter_category_id',
-			JHtml::_('select.options', JHtml::_('category.options', 'com_buttons'), 'value', 'text', $this->state->get('filter.category_id'))
-		);
-
-		JHtmlSidebar::addFilter(
-			JText::_('JOPTION_SELECT_PUBLISHED'),
-			'filter_state',
-			JHtml::_('select.options', JHtml::_('jgrid.publishedOptions'), 'value', 'text', $this->state->get('filter.state'), true)
-		);
-
-		JHtmlSidebar::addFilter(
-			JText::_('JOPTION_SELECT_AUTHOR'),
-			'filter_author_id',
-			JHtml::_('select.options', $this->getAuthors(), 'value', 'text', $this->state->get('filter.author_id'))
-		);
-
-		JHtmlSidebar::addFilter(
-			JText::_('COM_BUTTONS_OPTION_SELECT_CONTENT'),
-			'filter_content_id',
-			JHtml::_('select.options', $this->getContents(), 'value', 'text', $this->state->get('filter.content_id'))
-		);
-
 	}
 
 	/**

@@ -1,14 +1,13 @@
 <?php
 /**
- * @version		3.5.11 administrator/components/com_buttons/models/extras.php
- *
  * @package		Buttons
  * @subpackage	com_buttons
+ * @version		3.6.13
  * @since		3.4
  *
  * @author		Helios Ciancio <info@eshiol.it>
  * @link		http://www.eshiol.it
- * @copyright	Copyright (C) 2015, 2017 Helios Ciancio. All Rights Reserved
+ * @copyright	Copyright (C) 2015, 2018 Helios Ciancio. All Rights Reserved
  * @license		http://www.gnu.org/licenses/gpl-3.0.html GNU/GPL v3
  * Buttons is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
@@ -40,7 +39,7 @@ class ButtonsModelExtras extends JModelList
 		{
 			$config['filter_fields'] = array(
 				'id', 'a.id',
-				'asset_id', 'a.asset_id',
+//				'asset_id', 'a.asset_id',
 				'title', 'b.title',
 				'catid', 'a.catid', 'category_title',
 				'editor_user_id', 'a.editor_user_id', 'editor_name',

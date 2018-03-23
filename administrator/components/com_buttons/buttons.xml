@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension type="component" version="3.5" method="upgrade">
   <name>com_buttons</name>
-  <creationDate>November 2016</creationDate>
+  <creationDate>March 2018</creationDate>
   <author>Helios Ciancio</author>
   <authorEmail>info@eshiol.it</authorEmail>
   <authorUrl>www.eshiol.it</authorUrl>
-  <copyright>(C) 2015, 2017 Helios Ciancio. All rights reserved.</copyright>
+  <copyright>(C) 2015, 2018 Helios Ciancio. All rights reserved.</copyright>
   <license>http://www.gnu.org/licenses/gpl-3.0.html GNU/GPL v3</license>
-  <version>3.6.0</version>
+  <version>3.6.13.627</version>
   <description>COM_BUTTONS_XML_DESCRIPTION</description>
   <updateservers>
-    <server type="collection" priority="1" name="Buttons">https://www.eshiol.it/files/buttons/buttons.xml</server>
+    <server type="extension" priority="2" name="Buttons">https://www.eshiol.it/files/buttons/buttons.xml</server>
   </updateservers>
   <scriptfile>buttons.script.php</scriptfile>
   <install>
@@ -26,17 +26,15 @@
   <update>
     <schemas>
       <schemapath type="mysql">sql/updates/mysql</schemapath>
-      <schemapath type="postgresql">sql/updates/postgresql</schemapath>
-      <schemapath type="sqlsrv">sql/updates/sqlsrv</schemapath>
     </schemas>
   </update>
   <files folder="site">
     <filename>buttons.php</filename>
     <filename>controller.php</filename>
     <folder>controllers</folder>
+    <folder>layouts</folder>
     <folder>models</folder>
     <folder>views</folder>
-    <folder>layouts</folder>
   </files>
   <languages folder="language">
     <language tag="en-GB">en-GB/en-GB.com_buttons.ini</language>
@@ -76,14 +74,4 @@
     <folder>images</folder>
     <folder>js</folder>
   </media>
-  <config>
-    <fields name="params">
-      <fieldset name="basic">
-        <field name="debug" type="radio" class="btn-group" default="0" label="COM_BUTTONS_CONFIG_DEBUG_LABEL" description="COM_BUTTONS_CONFIG_DEBUG_DESC">
-          <option value="1">JYES</option>
-          <option value="0">JNO</option>
-        </field>
-      </fieldset>
-    </fields>
-  </config>
 </extension>

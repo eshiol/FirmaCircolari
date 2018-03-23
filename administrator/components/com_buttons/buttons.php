@@ -8,7 +8,7 @@
  *
  * @author		Helios Ciancio <info@eshiol.it>
  * @link		http://www.eshiol.it
- * @copyright	Copyright (C) 2015, 2017 Helios Ciancio. All Rights Reserved
+ * @copyright	Copyright (C) 2015, 2018 Helios Ciancio. All Rights Reserved
  * @license		http://www.gnu.org/licenses/gpl-3.0.html GNU/GPL v3
  * Buttons is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
@@ -22,9 +22,21 @@ defined('_JEXEC') or die('Restricted access.');
 $params = JComponentHelper::getParams('com_buttons');
 if ($params->get('debug') || defined('JDEBUG') && JDEBUG)
 {
-	JLog::addLogger(array('text_file' => $params->get('log', 'eshiol.php'), 'extension' => 'com_buttons'), JLog::ALL, array('com_buttons'));
+	JLog::addLogger(array('text_file' => $params->get('log', 'eshiol.log.php'), 'extension' => 'com_buttons_file'), JLog::ALL, array('com_buttons'));
 }
-JLog::addLogger(array('logger' => 'messagequeue', 'extension' => 'com_buttons'), JLOG::ALL & ~JLOG::DEBUG, array('com_buttons'));
+if (PHP_SAPI == 'cli')
+{
+	JLog::addLogger(array('logger' => 'echo', 'extension' => 'com_buttons'), JLOG::ALL & ~JLOG::DEBUG, array('com_buttons'));
+}
+else
+{
+	JLog::addLogger(array('logger' => (null !== $params->get('logger')) ?$params->get('logger') : 'messagequeue', 'extension' => 'com_buttons'), JLOG::ALL & ~JLOG::DEBUG, array('com_buttons'));
+	if ($params->get('phpconsole') && class_exists('JLogLoggerPhpconsole'))
+	{
+		JLog::addLogger(['logger' => 'phpconsole', 'extension' => 'com_buttons_phpconsole'],  JLOG::DEBUG, array('com_buttons'));
+	}
+}
+JLog::add(new JLogEntry(__METHOD__, JLog::DEBUG, 'com_buttons'));
 
 JHtml::_('behavior.tabstate');
 

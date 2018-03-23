@@ -1,14 +1,13 @@
 <?php
 /**
- * @version		3.5.11 administrator/components/com_buttons/models/buttons.php
- *
  * @package		Buttons
  * @subpackage	com_buttons
+ * @version		3.6.13
  * @since		3.4
  *
  * @author		Helios Ciancio <info@eshiol.it>
  * @link		http://www.eshiol.it
- * @copyright	Copyright (C) 2015, 2017 Helios Ciancio. All Rights Reserved
+ * @copyright	Copyright (C) 2015, 2018 Helios Ciancio. All Rights Reserved
  * @license		http://www.gnu.org/licenses/gpl-3.0.html GNU/GPL v3
  * Buttons is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
@@ -42,19 +41,20 @@ class ButtonsModelButtons extends JModelList
 				'id', 'a.id',
 				'title', 'a.title',
 				'alias', 'a.alias',
-				'checked_out', 'a.checked_out',
-				'checked_out_time', 'a.checked_out_time',
+//				'checked_out', 'a.checked_out',
+//				'checked_out_time', 'a.checked_out_time',
 				'catid', 'a.catid', 'category_title',
 				'state', 'a.state',
 				'access', 'a.access', 'access_level',
-				'created', 'a.created',
-				'created_by', 'a.created_by',
+//				'created', 'a.created',
+//				'created_by', 'a.created_by',
 				'ordering', 'a.ordering',
-				'featured', 'a.featured',
+//				'featured', 'a.featured',
 				'language', 'a.language',
 				'hits', 'a.hits',
-				'publish_up', 'a.publish_up',
-				'publish_down', 'a.publish_down',
+				'value', 'a.value',
+//				'publish_up', 'a.publish_up',
+//				'publish_down', 'a.publish_down',
 			);
 		}
 
@@ -239,8 +239,8 @@ class ButtonsModelButtons extends JModelList
 		}
 
 		// Add the list ordering clause.
-		$orderCol = $this->state->get('list.ordering');
-		$orderDirn = $this->state->get('list.direction');
+		$orderCol  = $this->state->get('list.ordering', 'a.title');
+		$orderDirn = $this->state->get('list.direction', 'ASC');
 
 		if ($orderCol == 'a.ordering' || $orderCol == 'category_title')
 		{

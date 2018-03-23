@@ -2,6 +2,10 @@
 # Reserved files
 # =========================
 
+# Joomla
+images/
+files/
+
 # Eclipse
 .settings
 .buildpath

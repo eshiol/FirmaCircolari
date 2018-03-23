@@ -2,10 +2,12 @@
 /**
  * @package		Buttons
  * @subpackage	com_buttons
+ * @version		3.6.13
+ * @since		3.4
  *
  * @author		Helios Ciancio <info@eshiol.it>
  * @link		http://www.eshiol.it
- * @copyright	Copyright (C) 2015, 2017 Helios Ciancio. All Rights Reserved
+ * @copyright	Copyright (C) 2015, 2018 Helios Ciancio. All Rights Reserved
  * @license		http://www.gnu.org/licenses/gpl-3.0.html GNU/GPL v3
  * Buttons is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
@@ -18,8 +20,6 @@ defined('_JEXEC') or die('Restricted access.');
 
 /**
  * View class for a list of buttons.
- * @version		3.6
- * @since		3.4
  */
 class ButtonsViewButtons extends JViewLegacy
 {
@@ -29,35 +29,35 @@ class ButtonsViewButtons extends JViewLegacy
 	 * @var  array
 	 */
 	protected $items;
-
+	
 	/**
 	 * The pagination object
 	 *
 	 * @var  JPagination
 	 */
 	protected $pagination;
-
+	
 	/**
 	 * The model state
 	 *
 	 * @var  object
 	 */
 	protected $state;
-
+	
 	/**
 	 * Form object for search filters
 	 *
 	 * @var  JForm
 	 */
 	public $filterForm;
-
+	
 	/**
 	 * The active search filters
 	 *
 	 * @var  array
 	 */
 	public $activeFilters;
-
+	
 	/**
 	 * The sidebar markup
 	 *
@@ -162,7 +162,6 @@ class ButtonsViewButtons extends JViewLegacy
 		}
 
 		JHtmlSidebar::setAction('index.php?option=com_buttons&view=buttons');
-
 	}
 
 	/**
@@ -180,10 +179,10 @@ class ButtonsViewButtons extends JViewLegacy
 			'a.ordering' => JText::_('JGRID_HEADING_ORDERING'),
 			'a.state' => JText::_('JSTATUS'),
 			'a.title' => JText::_('JGLOBAL_TITLE'),
+			'a.value' => JText::_('COM_BUTTONS_HEADING_VALUE'),
 			'a.access' => JText::_('JGRID_HEADING_ACCESS'),
 			'a.hits' => JText::_('JGLOBAL_HITS'),
 			'a.language' => JText::_('JGRID_HEADING_LANGUAGE'),
-			'a.value' => JText::_('COM_BUTTONS_HEADING_VALUE'),
 			'a.id' => JText::_('JGRID_HEADING_ID')
 		);
 	}

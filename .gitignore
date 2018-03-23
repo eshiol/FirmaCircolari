@@ -3,8 +3,8 @@
 # =========================
 
 # Joomla
-images/
-files/
+/images/
+/files/
 
 # Eclipse
 .settings

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+	<extension version="3.0" type="file" method="upgrade">
+	<name>firmacircolari1</name>
+	<creationDate>March 2018</creationDate>
+	<author>Helios Ciancio</author>
+	<authorEmail>info@eshiol.it</authorEmail>
+	<authorUrl>www.eshiol.it</authorUrl>
+	<copyright>(C) 2015, 2018 Helios Ciancio. All rights reserved.</copyright>
+	<license>GNU/GPL v3</license>
+	<version>3.6.12.1</version>
+	<description>firmacircolari1_xml_description</description>
+	<updateservers>
+		<server type="extension" priority="2" name="Buttons">https://www.eshiol.it/files/buttons/firmacircolari.xml</server>
+	</updateservers>
+	<scriptfile>firmacircolari1.script.php</scriptfile>
+	<fileset>
+		<files>
+			<filename>templates/accessible/html/com_content/category/firmacircolari.php</filename>
+			<filename>templates/accessible/html/com_content/category/firmacircolari.xml</filename>
+			<filename>templates/accessible/html/com_content/category/firmacircolari_articles.php</filename>
+			<filename>templates/accessible/html/com_content/category/firmacircolari_children.php</filename>
+			<filename>language/en-GB/en-GB.files_firmacircolari1.sys.ini</filename>
+			<filename>language/it-IT/it-IT.files_firmacircolari1.sys.ini</filename>
+		</files>
+	</fileset>
+</extension>
+

@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		3.5.11 plugins/content/buttons/buttons.php
+ * @version		3.6.12 plugins/content/buttons/buttons.php
  *
  * @package		Buttons
  * @subpackage	plg_content_buttons
@@ -8,7 +8,7 @@
  *
  * @author		Helios Ciancio <info@eshiol.it>
  * @link		http://www.eshiol.it
- * @copyright	Copyright (C) 2015, 2017 Helios Ciancio. All Rights Reserved
+ * @copyright	Copyright (C) 2015, 2018 Helios Ciancio. All Rights Reserved
  * @license		http://www.gnu.org/licenses/gpl-3.0.html GNU/GPL v3
  * Buttons is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
@@ -66,12 +66,24 @@ class plgContentButtons extends JPlugin
 	public function __construct(&$subject, $config)
 	{
 		parent::__construct($subject, $config);
+
 		if ($this->params->get('debug') || defined('JDEBUG') && JDEBUG)
 		{
-			JLog::addLogger(array('text_file' => $this->params->get('log', 'eshiol.php'), 'extension' => 'plg_content_buttons'), JLog::ALL, array('plg_content_buttons'));
+			JLog::addLogger(array('text_file' => $this->params->get('log', 'eshiol.log.php'), 'extension' => 'plg_content_buttons_file'), JLog::ALL, array('plg_content_buttons'));
 		}
-		JLog::addLogger(array('logger' => 'messagequeue', 'extension' => 'plg_content_buttons'), JLOG::ALL & ~JLOG::DEBUG, array('plg_content_buttons'));
-		JLog::add(__METHOD__, JLOG::DEBUG, 'plg_content_buttons');
+		if (PHP_SAPI == 'cli')
+		{
+			JLog::addLogger(array('logger' => 'echo', 'extension' => 'plg_content_buttons'), JLOG::ALL & ~JLOG::DEBUG, array('plg_content_buttons'));
+		}
+		else
+		{
+			JLog::addLogger(array('logger' => (null !== $this->params->get('logger')) ?$this->params->get('logger') : 'messagequeue', 'extension' => 'plg_content_buttons'), JLOG::ALL & ~JLOG::DEBUG, array('plg_content_buttons'));
+			if ($this->params->get('phpconsole') && class_exists('JLogLoggerPhpconsole'))
+			{
+				JLog::addLogger(['logger' => 'phpconsole', 'extension' => 'plg_content_buttons_phpconsole'],  JLOG::DEBUG, array('plg_content_buttons'));
+			}
+		}
+		JLog::add(new JLogEntry(__METHOD__, JLog::DEBUG, 'plg_content_buttons'));
 
 		//TODO: check com_buttons is installed and enabled
 		$app = JFactory::getApplication();
@@ -79,7 +91,7 @@ class plgContentButtons extends JPlugin
 		{
 			if (!file_exists(JPATH_ADMINISTRATOR.'/components/com_buttons/helpers/buttons.php'))
 			{
-				JLog::add(JText::_('PLG_CONTENT_BUTTONS_MSG_REQUIREMENTS'),JLOG::WARNING,'plg_content_buttons');
+				JLog::add(new JLogEntry(JText::_('PLG_CONTENT_BUTTONS_MSG_REQUIREMENTS'), JLOG::WARNING, 'plg_content_buttons'));
 			}
 		}
 

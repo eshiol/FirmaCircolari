@@ -59,7 +59,7 @@
 			type="text"
 			label="COM_BUTTONS_FIELD_DEBUG_FILENAME_LABEL"
 			description="COM_BUTTONS_FIELD_DEBUG_FILENAME_DESC"
-			default="eshiol.php"
+			default="eshiol.log.php"
 			showon="debug:1"
 		/>
         <field name="phpconsole" type="radio" class="btn-group btn-group-yesno" default="0" description="COM_BUTTONS_FIELD_DEBUG_PHPCONSOLE_DESC" label="COM_BUTTONS_FIELD_DEBUG_PHPCONSOLE_LABEL">

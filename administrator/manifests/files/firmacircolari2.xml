@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+	<extension version="3.0" type="file" method="upgrade">
+	<name>firmacircolari2</name>
+	<creationDate>March 2018</creationDate>
+	<author>Helios Ciancio</author>
+	<authorEmail>info@eshiol.it</authorEmail>
+	<authorUrl>www.eshiol.it</authorUrl>
+	<copyright>(C) 2015, 2018 Helios Ciancio. All rights reserved.</copyright>
+	<license>GNU/GPL v3</license>
+	<version>3.6.12.7</version>
+	<description>Adding custom fields to article using a plugin for FAP template</description>
+	<updateservers>
+		<server type="extension" priority="2" name="Buttons">https://www.eshiol.it/files/buttons/firmacircolari.xml</server>
+	</updateservers>
+	<fileset>
+		<files>
+			<filename>templates/accessible/html/com_content/form/edit.php</filename>
+			<filename>language/en-GB/en-GB.files_firmacircolari2.sys.ini</filename>
+			<filename>language/it-IT/it-IT.files_firmacircolari2.sys.ini</filename>
+		</files>
+	</fileset>
+</extension>
+

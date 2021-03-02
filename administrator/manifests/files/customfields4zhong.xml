@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="3.0" type="file" method="upgrade">
+  <name>Custom article fields for Zhong Template</name>
+  <creationDate>March 2018</creationDate>
+  <author>Helios Ciancio</author>
+  <authorEmail>info@eshiol.it</authorEmail>
+  <authorUrl>www.eshiol.it</authorUrl>
+  <copyright>(C) 2016, 2018 Helios Ciancio. All rights reserved.</copyright>
+  <license/>
+  <version>3.6.12.4</version>
+  <description>Adding custom fields to article using a plugin for Zhong Template</description>
+  <fileset>
+    <files>
+      <folder>templates/zhong/html/com_content/form</folder>
+    </files>
+  </fileset>
+</extension>

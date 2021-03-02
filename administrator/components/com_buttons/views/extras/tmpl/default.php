@@ -141,16 +141,21 @@ JFactory::getDocument()->addScriptDeclaration('
 								<?php
 								$i = strrpos($item->alias, '.');
 								$type_alias = substr($item->alias, 0, $i);
+								JLog::add(new JLogEntry(__LINE__ . ': ' . $type_alias, JLOG::DEBUG, 'com_buttons'));
 								$id = substr($item->alias, $i+1);
 								$ucmType = new JUcmType;
 								$type = $ucmType->getTypeByAlias($type_alias);
-								$registry = new Registry;
-								$registry->loadString($type->table);
-								$contentType = $registry->get('special')->type;
-								$table = JTable::getInstance($contentType);
-								$table->load($id);
-								$item->alias = $table->alias;
-								echo JText::sprintf('JGLOBAL_LIST_ALIAS', $this->escape($item->alias)); ?>
+								if ($type)
+								{
+									$registry = new Registry;
+									$registry->loadString($type->table);
+									$contentType = $registry->get('special')->type;
+									$table = JTable::getInstance($contentType);
+									$table->load($id);
+									$item->alias = $table->alias;
+									echo JText::sprintf('JGLOBAL_LIST_ALIAS', $this->escape($item->alias));
+								}
+								?>
 							</div>
 						</td>
 						<td class="small">

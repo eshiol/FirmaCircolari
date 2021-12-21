@@ -1,10 +1,10 @@
 <?php
 /**
  * @package     Joomla.Site
- * @subpackage  com_buttons
+ * @subpackage  Buttons
  *
  * @version     __DEPLOY_VERSION__
- * @since       3.4.8
+ * @since       3..4.8
  *
  * @author		Helios Ciancio <info (at) eshiol (dot) it>
  * @link		https://www.eshiol.it

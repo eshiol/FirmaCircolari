@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension type="component" version="3.5" method="upgrade">
   <name>com_buttons</name>
-  <creationDate>03 March 2021</creationDate>
+  <creationDate>December 2021</creationDate>
   <author>Helios Ciancio</author>
   <authorEmail>info@eshiol.it</authorEmail>
   <authorUrl>www.eshiol.it</authorUrl>
   <copyright>(C) 2015 - 2021 Helios Ciancio. All rights reserved.</copyright>
   <license>http://www.gnu.org/licenses/gpl-3.0.html GNU/GPL v3</license>
-  <version>3.9.0</version>
+  <version>3.10.0</version>
   <description>COM_BUTTONS_XML_DESCRIPTION</description>
   <updateservers>
     <server type="extension" priority="2" name="Buttons">https://www.eshiol.it/files/buttons/buttons.xml</server>

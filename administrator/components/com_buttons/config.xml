@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
 /**
- * @version		3.6.12 administrator/components/com_buttons/config.xml
+ * @package     Joomla.Administrator
+ * @subpackage  Buttons
  *
- * @package		Buttons
- * @subpackage	com_buttons
- * @since		3.4
+ * @version     __DEPLOY_VERSION__
+ * @since       3.4
  *
- * @author		Helios Ciancio <info@eshiol.it>
- * @link		http://www.eshiol.it
- * @copyright	Copyright (C) 2015, 2018 Helios Ciancio. All Rights Reserved
+ * @author		Helios Ciancio <info (at) eshiol (dot) it>
+ * @link		https://www.eshiol.it
+ * @copyright	Copyright (C) 2015 - 2021 Helios Ciancio. All Rights Reserved
  * @license		http://www.gnu.org/licenses/gpl-3.0.html GNU/GPL v3
  * Buttons is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or

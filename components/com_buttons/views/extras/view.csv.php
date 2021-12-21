@@ -1,14 +1,14 @@
 <?php
 /**
- * @version		3.5.11 components/com_buttons/views/extras/view.csv.php
+ * @package     Joomla.Site
+ * @subpackage  com_buttons
  *
- * @package		Buttons
- * @subpackage	com_buttons
- * @since		3.4.8
+ * @version     __DEPLOY_VERSION__
+ * @since       3.4.8
  *
- * @author		Helios Ciancio <info@eshiol.it>
- * @link		http://www.eshiol.it
- * @copyright	Copyright (C) 2015, 2018 Helios Ciancio. All Rights Reserved
+ * @author		Helios Ciancio <info (at) eshiol (dot) it>
+ * @link		https://www.eshiol.it
+ * @copyright	Copyright (C) 2015 - 2021 Helios Ciancio. All Rights Reserved
  * @license		http://www.gnu.org/licenses/gpl-3.0.html GNU/GPL v3
  * Buttons is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
@@ -86,21 +86,19 @@ class ButtonsViewExtras extends JViewLegacy
 
 			if (in_array($cparams[$catid]->get('report_access', 3), $authorisedViewLevels))
 			{
-				$str = $item->editor_name.';'.
-					implode(
+				$str = $item->editor_name . ';'
+					. implode(',',
 						$db->setQuery(
 						$db->getQuery(true)
 							->select($db->qn('title'))
 							->from($db->qn('#__usergroups'))
-							->where($db->qn('id').' IN (' . implode(JAccess::getGroupsByUser($item->editor_user_id, false), ', ').')')
-							)->loadColumn(0)
-						, ',').';'.
-					$item->modified.';'.
-					$item->category_title.';'.
-					ButtonsHelper::getToolbar($catid, $asset_id, $item->editor_user_id, false, 'csv').';'
-					;
+							->where($db->qn('id').' IN (' . implode(', ', JAccess::getGroupsByUser($item->editor_user_id, false)).')')
+							)->loadColumn(0)) . ';'
+					. $item->modified . ';'
+					. $item->category_title . ';'
+					. ButtonsHelper::getToolbar($catid, $asset_id, $item->editor_user_id, false, 'csv') . ';';
 				JLog::add(new JLogEntry($str, JLOG::DEBUG, 'com_buttons'));
-				echo $str."\n";
+				echo $str . "\n";
 			}
 		}
 	}

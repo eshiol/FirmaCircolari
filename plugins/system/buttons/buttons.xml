@@ -1,18 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension version="3.5" type="plugin" group="system" method="upgrade">
   <name>plg_system_buttons</name>
-  <creationDate>March 2018</creationDate>
+  <creationDate>December 2021</creationDate>
   <author>Helios Ciancio</author>
   <authorEmail>info@eshiol.it</authorEmail>
   <authorUrl>www.eshiol.it</authorUrl>
-  <copyright>(C) 2015, 2018 Helios Ciancio. All rights reserved.</copyright>
+  <copyright>(C) 2015 - 2021 Helios Ciancio. All rights reserved.</copyright>
   <license>http://www.gnu.org/licenses/gpl-3.0.html GNU/GPL v3</license>
-  <version>3.6.13.128</version>
+  <version>3.10.0</version>
   <description>PLG_SYSTEM_BUTTONS_XML_DESCRIPTION</description>
   <scriptfile>enable.php</scriptfile>
-  <updateservers>
-    <server type="extension" priority="2" name="Buttons">https://www.eshiol.it/files/buttons/buttons.xml</server>
-  </updateservers>
   <files>
     <filename plugin="buttons">buttons.php</filename>
   </files>

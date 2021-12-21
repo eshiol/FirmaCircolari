@@ -9,9 +9,6 @@
   <license>http://www.gnu.org/licenses/gpl-3.0.html GNU/GPL v3</license>
   <version>3.10.0</version>
   <description>COM_BUTTONS_XML_DESCRIPTION</description>
-  <updateservers>
-    <server type="extension" priority="2" name="Buttons">https://www.eshiol.it/files/buttons/buttons.xml</server>
-  </updateservers>
   <scriptfile>buttons.script.php</scriptfile>
   <install>
     <sql>

@@ -1,5 +1,4 @@
 <?php
-<?php
 /**
  * @package     Joomla.Plugins		
  * @subpackage  Content.Buttons
